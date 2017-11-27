@@ -3,8 +3,11 @@ function GroupAIStateBase:convert_hostage_to_criminal(unit, peer_unit)
 
   local player_unit = peer_unit or managers.player:player_unit()
   if alive(player_unit) and alive(unit) then
-    unit:base()._minion_owner = player_unit
-    HopLib.unit_info_manager:clear_info(unit)
+    local max_minions = peer_unit and (peer_unit:base():upgrade_value("player", "convert_enemies_max_minions") or 0) or managers.player:upgrade_value("player", "convert_enemies_max_minions", 0)
+    if table.size(self._criminals[player_unit:key()].minions) < max_minions then
+      unit:base()._minion_owner = player_unit
+      HopLib.unit_info_manager:clear_info(unit)
+    end
   end
   
   return convert_hostage_to_criminal_original(self, unit, peer_unit)
