@@ -3,8 +3,10 @@
   "description" : "Collection of functions and useful tools used in multiple of my mods",
   "author" : "Shiny Hoppip",
   "blt_version" : 2,
-  "priority" : 500,
+  "priority" : 499,
+  "undisablable" : true,
   "color" : "0.043 0.808 0.6",
+  "image" : "mod.png",
   "version" : "1.0",
   "updates" : [ { "identifier" : "hoplib" } ],
   "hooks" : [
