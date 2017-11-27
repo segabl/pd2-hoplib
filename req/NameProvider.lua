@@ -1,7 +1,7 @@
 NameProvider = NameProvider or class()
 
 function NameProvider:init()
-  self.names = {
+  self._names = {
     spooc = { default = "Cloaker" },
     tank_green = { default = "Bulldozer" },
     tank_black = { default = "Blackdozer" },
@@ -21,11 +21,11 @@ function NameProvider:init()
     phalanx_minion = { default = "Phalanx Shield" },
     bank_manager = { default = "Bank Manager", dah = "Ralph Garnet" }
   }
-  self.names.ceiling_turret_module_no_idle = self.names.ceiling_turret_module
-  self.names.hector_boss_no_armor = self.names.hector_boss
-  self.names.drug_lord_boss_stealth = self.names.drug_lord_boss
+  self._names.ceiling_turret_module_no_idle = self._names.ceiling_turret_module
+  self._names.hector_boss_no_armor = self._names.hector_boss
+  self._names.drug_lord_boss_stealth = self._names.drug_lord_boss
   
-  self.current_level_id = managers.job and managers.job:current_level_id() or "default"
+  self._current_level_id = managers.job and managers.job:current_level_id() or "default"
 end
 
 function NameProvider:_create_name_entry_from_tweak_data_id(tweak)
@@ -33,7 +33,7 @@ function NameProvider:_create_name_entry_from_tweak_data_id(tweak)
     return
   end
   local name = tweak:pretty(true):gsub("Swat", "SWAT"):gsub("Fbi", "FBI")
-  self.names[tweak] = { [self.current_level_id] = name }
+  self._names[tweak] = { [self._current_level_id] = name }
   return name
 end
 
@@ -41,5 +41,5 @@ function NameProvider:name_by_id(tweak)
   if not tweak then
     return
   end
-  return not self.names[tweak] and self:_create_name_entry_from_tweak_data_id(tweak) or self.names[tweak][self.current_level_id] or self.names[tweak].default
+  return not self._names[tweak] and self:_create_name_entry_from_tweak_data_id(tweak) or self._names[tweak][self._current_level_id] or self._names[tweak].default
 end
