@@ -5,6 +5,8 @@ function UnitInfo:init(unit, u_key, manager)
   self._unit_key = u_key
   self._type = "unknown"
   self._name = u_key
+  self._damage = 0
+  self._kills = 0
   
   local u_base = unit:base()
   local cm = managers.criminals
@@ -22,8 +24,6 @@ function UnitInfo:init(unit, u_key, manager)
     self._color_id = cm:character_color_id_by_unit(unit)
   elseif HopLib:is_object_of_class(u_base, CopBase) then
     self._type = "npc"
-    self._damage = 0
-    self._kills = 0
     self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
     local gstate = managers.groupai:state()
     if gstate:is_unit_team_AI(unit) then
@@ -51,8 +51,6 @@ function UnitInfo:init(unit, u_key, manager)
     self._name = manager._name_provider:name_by_id(u_base._tweak_table_id)
     self._nickname = self._owner and self._owner:nickname() .. "'s " .. self._name
     self._is_special = u_base._tweak_table_id:find("turret") and true
-    self._damage = 0
-    self._kills = 0
     self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
   end
 end
