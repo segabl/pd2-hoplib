@@ -1,0 +1,16 @@
+{
+  "name" : "HopLib",
+  "description" : "Collection of functions and useful tools used in multiple of my mods",
+  "author" : "Shiny Hoppip",
+  "blt_version" : 2,
+  "priority" : 500,
+  "color" : "0.043 0.808 0.6",
+  "version" : "1.0",
+  "updates" : [ { "identifier" : "hoplib" } ],
+  "hooks" : [
+    { "hook_id" : "lib/managers/group_ai_states/groupaistatebase", "script_path" : "HopLib.lua" },
+    { "hook_id" : "lib/setups/setup", "script_path" : "HopLib.lua" },
+    { "hook_id" : "lib/units/enemies/cop/copdamage", "script_path" : "HopLib.lua" },
+    { "hook_id" : "lib/units/equipment/sentry_gun/sentrygundamage", "script_path" : "HopLib.lua" }
+  ]
+}
