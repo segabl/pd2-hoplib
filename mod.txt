@@ -10,9 +10,9 @@
   "version" : "1.0",
   "updates" : [ { "identifier" : "hoplib" } ],
   "hooks" : [
+    { "hook_id" : "core/lib/setups/coresetup", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/managers/group_ai_states/groupaistatebase", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/network/handlers/unitnetworkhandler", "script_path" : "HopLib.lua" },
-    { "hook_id" : "lib/setups/setup", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/units/enemies/cop/copdamage", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/units/equipment/sentry_gun/sentrygundamage", "script_path" : "HopLib.lua" }
   ]
