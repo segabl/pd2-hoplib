@@ -16,11 +16,11 @@ function UnitInfo:init(unit, u_key, manager)
     self._type = "player"
     self._sub_type = u_base.is_local_player and "local_player" or "remote_player"
     self._peer = unit:network():peer()
-    self._name = u_base.is_local_player and managers.network.account:username() or self._peer:name()
-    self._level = u_base.is_local_player and managers.experience:current_level() or self._peer:level()
-    self._rank = u_base.is_local_player and managers.experience:current_rank() or self._peer:rank()
-    self._damage = self._peer._data_damage or 0
-    self._kills = self._peer._data_kills or 0
+    self._name = u_base.is_local_player and managers.network.account:username() or self._peer and self._peer:name()
+    self._level = u_base.is_local_player and managers.experience:current_level() or self._peer and self._peer:level()
+    self._rank = u_base.is_local_player and managers.experience:current_rank() or self._peer and self._peer:rank()
+    self._damage = self._peer and self._peer._data_damage or 0
+    self._kills = self._peer and self._peer._data_kills or 0
     self._color_id = cm:character_color_id_by_unit(unit)
   elseif HopLib:is_object_of_class(u_base, CopBase) then
     self._type = "npc"
