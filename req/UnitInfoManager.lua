@@ -25,6 +25,7 @@ function UnitInfo:init(unit, u_key, manager)
   elseif HopLib:is_object_of_class(u_base, CopBase) then
     self._type = "npc"
     self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
+    self._female = u_base._tweak_table:find("female") and true
     local gstate = managers.groupai:state()
     if gstate:is_unit_team_AI(unit) then
       self._sub_type = "team_ai"
