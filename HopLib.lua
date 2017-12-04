@@ -10,6 +10,10 @@ if not HopLib then
   HopLib.name_provider = NameProvider:new()
   HopLib.unit_info_manager = UnitInfoManager:new(HopLib.name_provider)
   
+  Hooks:Register("HopLibOnUnitDamaged")
+  Hooks:Register("HopLibOnUnitDied")
+  Hooks:Register("HopLibOnEnemyConverted")
+  
   -- Checks if an object is of a certain class, either directly or by inheritance
   function HopLib:is_object_of_class(object, class)
     local m = getmetatable(object)

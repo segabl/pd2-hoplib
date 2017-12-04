@@ -7,8 +7,10 @@ function SentryGunDamage:_apply_damage(damage, dmg_shield, dmg_body, is_local, a
   local dmg = damage == "death" and (dmg_shield and self._SHIELD_HEALTH_INIT or dmg_body and self._HEALTH_INIT) or damage
   if info and type(dmg) == "number" then
     info:update_damage(dmg, self._dead)
+    Hooks:Call("HopLibOnUnitDamaged", self._unit, { damage = dmg, attacker_unit = attacker_unit })
   end
   if self._dead then
+    Hooks:Call("HopLibOnUnitDied", self._unit, { damage = dmg, attacker_unit = attacker_unit })
     HopLib.unit_info_manager:clear_info(self._unit)
   end
   
