@@ -11,7 +11,7 @@ function UnitInfo:init(unit, u_key, manager)
   local u_base = unit:base()
   local cm = managers.criminals
   
-  self._owner = manager:get_info(u_base.get_owner and u_base:get_owner() or u_base._minion_owner or u_base.kpr_minion_owner_peer_id and cm:character_unit_by_peer_id(u_base.kpr_minion_owner_peer_id))
+  self._owner = manager:get_info(u_base._minion_owner or u_base.get_owner and u_base:get_owner() or u_base.kpr_minion_owner_peer_id and cm:character_unit_by_peer_id(u_base.kpr_minion_owner_peer_id))
   if u_base.is_husk_player or u_base.is_local_player then
     self._type = "player"
     self._sub_type = u_base.is_local_player and "local_player" or "remote_player"
@@ -30,7 +30,7 @@ function UnitInfo:init(unit, u_key, manager)
     if gstate:is_unit_team_AI(unit) then
       self._sub_type = "team_ai"
       self._name = u_base:nick_name()
-    elseif gstate._police[u_key] and gstate._police[u_key].is_converted or gstate:is_enemy_converted_to_criminal(unit) then
+    elseif self._owner or gstate._police[u_key] and gstate._police[u_key].is_converted or gstate:is_enemy_converted_to_criminal(unit) then
       self._sub_type = "joker"
       self._name = manager._name_provider:name_by_id(u_base._stats_name or u_base._tweak_table)
       self._nickname = u_base.kpr_minion_owner_peer_id and Keepers:GetJokerNameByPeer(u_base.kpr_minion_owner_peer_id)
