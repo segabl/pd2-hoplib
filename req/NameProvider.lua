@@ -1,6 +1,11 @@
 NameProvider = NameProvider or class()
 
 function NameProvider:init()
+  self:_init_names()
+  self._current_level_id = managers.job and managers.job:current_level_id() or "default"
+end
+
+function NameProvider:_init_names()
   self._names = {
     spooc = { default = "Cloaker" },
     tank_green = { default = "Bulldozer" },
@@ -24,8 +29,6 @@ function NameProvider:init()
   self._names.ceiling_turret_module_no_idle = self._names.ceiling_turret_module
   self._names.hector_boss_no_armor = self._names.hector_boss
   self._names.drug_lord_boss_stealth = self._names.drug_lord_boss
-  
-  self._current_level_id = managers.job and managers.job:current_level_id() or "default"
 end
 
 function NameProvider:_create_name_entry_from_tweak_data_id(tweak)
