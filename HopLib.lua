@@ -6,7 +6,6 @@ if not HopLib then
   dofile(ModPath .. "req/NameProvider.lua")
   
   HopLib.mod_path = ModPath
-  HopLib.hooks = table.list_to_set(BLT.Mods:GetMod("HopLib"):GetHooks())
   HopLib.name_provider = NameProvider:new()
   HopLib.unit_info_manager = UnitInfoManager:new(HopLib.name_provider)
   
@@ -15,10 +14,10 @@ if not HopLib then
   Hooks:Register("HopLibOnEnemyConverted")
   
   -- Checks if an object is of a certain class, either directly or by inheritance
-  function HopLib:is_object_of_class(object, class)
+  function HopLib:is_object_of_class(object, c)
     local m = getmetatable(object)
     while m do
-       if m == class then
+       if m == c then
          return true
        end
        m = m.super
@@ -28,9 +27,11 @@ if not HopLib then
 
 end
 
-if HopLib.hooks[RequiredScript] then
+if RequiredScript then
+
   local fname = HopLib.mod_path .. "lua/" .. RequiredScript:gsub(".+/(.+)", "%1.lua")
   if io.file_is_readable(fname) then
     dofile(fname)
   end
+
 end
