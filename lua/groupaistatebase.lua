@@ -11,7 +11,7 @@ function GroupAIStateBase:convert_hostage_to_criminal(unit, peer_unit)
     local criminal_data = self._criminals[player_unit:key()]
     if table.size(criminal_data and criminal_data.minions or {}) < max_minions then
       unit:base()._minion_owner = player_unit
-      HopLib.unit_info_manager:clear_info(unit)
+      HopLib:unit_info_manager():clear_info(unit)
     end
   end
   

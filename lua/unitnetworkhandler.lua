@@ -8,7 +8,7 @@ function UnitNetworkHandler:mark_minion(unit, minion_owner_peer_id, convert_enem
   local player_unit = peer and peer:unit()
   if alive(player_unit) then
     unit:base()._minion_owner = player_unit
-    HopLib.unit_info_manager:clear_info(unit)
+    HopLib:unit_info_manager():clear_info(unit)
   end
   
   mark_minion_original(self, unit, minion_owner_peer_id, convert_enemies_health_multiplier_level, passive_convert_enemies_health_multiplier_level, sender, ...)
