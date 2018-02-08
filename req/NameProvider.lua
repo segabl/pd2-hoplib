@@ -35,7 +35,7 @@ function NameProvider:_create_name_entry_from_tweak_data_id(tweak)
   if not tweak then
     return
   end
-  local name = tweak:gsub("_female", ""):pretty(true):gsub("Swat", "SWAT"):gsub("Fbi", "FBI")
+  local name = tweak:gsub("_female", ""):pretty(true):gsub("Swat", "SWAT"):gsub("Fbi", "FBI"):gsub("City", "City Elite"):gsub("Murkywater", "Murkywater"):gsub("Zeal", "ZEAL")
   self._names[tweak] = { [self._current_level_id] = name }
   return name
 end
