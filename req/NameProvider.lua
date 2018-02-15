@@ -34,6 +34,7 @@ function NameProvider:_init_names()
     deathvox_taser = { default = "ZEAL Taser" },
     deathvox_sniper_assault = { default = "ZEAL Assault Sniper" },
     deathvox_cloaker = { default = "ZEAL Cloaker" },
+    deathvox_medic = { default = "ZEAL Medic" },
     deathvox_grenadier = { default = "ZEAL Grenadier" },
     deathvox_greendozer = { default = "ZEAL Shotgun Bulldozer" },
     deathvox_blackdozer = { default = "ZEAL Saiga-12 Bulldozer" },
