@@ -24,7 +24,21 @@ function NameProvider:_init_names()
     spa_vip = { default = "Charon" },
     phalanx_vip = { default = "Neville Winters" },
     phalanx_minion = { default = "Phalanx Shield" },
-    bank_manager = { default = "Bank Manager", dah = "Ralph Garnet" }
+    bank_manager = { default = "Bank Manager", dah = "Ralph Garnet" }\
+    deathvox_shield = { default = "ZEAL Shield" },
+    deathvox_heavyar = { default = "ZEAL Heavy AR" },
+    deathvox_lightar = { default = "ZEAL Light AR" },
+    deathvox_guard = { default = "G-Man" },
+    deathvox_lightshot = { default = "ZEAL Light Shotgunner" },
+    deathvox_heavyshot = { default = "ZEAL Heavy Shotgunner" },
+    deathvox_taser = { default = "ZEAL Taser" },
+    deathvox_sniper_assault = { default = "ZEAL Assault Sniper" },
+    deathvox_cloaker = { default = "ZEAL Cloaker" },
+    deathvox_grenadier = { default = "ZEAL Grenadier" },
+    deathvox_greendozer = { default = "ZEAL Shotgun Bulldozer" },
+    deathvox_blackdozer = { default = "ZEAL Saiga-12 Bulldozer" },
+    deathvox_lmgdozer = { default = "ZEAL M249 Bulldozer" },
+    deathvox_medicdozer = { default = "Zeal Medicdozer" }
   }
   self._names.ceiling_turret_module_no_idle = self._names.ceiling_turret_module
   self._names.hector_boss_no_armor = self._names.hector_boss
