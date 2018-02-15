@@ -24,7 +24,7 @@ function NameProvider:_init_names()
     spa_vip = { default = "Charon" },
     phalanx_vip = { default = "Neville Winters" },
     phalanx_minion = { default = "Phalanx Shield" },
-    bank_manager = { default = "Bank Manager", dah = "Ralph Garnet" }\
+    bank_manager = { default = "Bank Manager", dah = "Ralph Garnet" },
     deathvox_shield = { default = "ZEAL Shield" },
     deathvox_heavyar = { default = "ZEAL Heavy AR" },
     deathvox_lightar = { default = "ZEAL Light AR" },
