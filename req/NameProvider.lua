@@ -38,7 +38,7 @@ function NameProvider:_init_names()
     deathvox_greendozer = { default = "ZEAL Shotgun Bulldozer" },
     deathvox_blackdozer = { default = "ZEAL Saiga-12 Bulldozer" },
     deathvox_lmgdozer = { default = "ZEAL M249 Bulldozer" },
-    deathvox_medicdozer = { default = "Zeal Medicdozer" }
+    deathvox_medicdozer = { default = "ZEAL Medicdozer" }
   }
   self._names.ceiling_turret_module_no_idle = self._names.ceiling_turret_module
   self._names.hector_boss_no_armor = self._names.hector_boss
