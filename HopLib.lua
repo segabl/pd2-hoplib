@@ -12,20 +12,33 @@ if not HopLib then
   HopLib.mod_path = ModPath
   HopLib.save_path = SavePath
   
+  HopLib.name_providers = {
+    default = NameProvider
+  }
+  
+  HopLib.settings = {
+    name_provider = "default"
+  }
+  
   -- Returns the current NameProvider instance
   function HopLib:name_provider()
     if not self._name_provider then
-      self._name_provider = NameProvider:new()
+      local provider = self.name_providers[self.settings.name_provider] or self.name_providers.default
+      self._name_provider = provider:new()
     end
     return self._name_provider
   end
   
-  -- Replaces the default NameProvider with a custom one
-  function HopLib:set_name_provider(provider)
-    if (self:is_object_of_class(provider, NameProvider)) then
-      self._name_provider = provider
+  -- Registers a custom name provider that can be selected by the user
+  function HopLib:register_name_provider(name, provider_class)
+    if (self:is_object_of_class(provider_class, NameProvider)) then
+      if not self.name_providers[name] then
+        self.name_providers[name] = provider
+      else
+        log("[HopLib] ERROR: name provider with name \"" .. name .. "\" already exists!")
+      end
     else
-      log("[HopLib] ERROR: Trying to use an object as name provider that isn't inherited from NameProvider!")
+      log("[HopLib] ERROR: Trying to register a name provider that isn't inherited from NameProvider!")
     end
   end
   
@@ -39,6 +52,9 @@ if not HopLib then
   
   -- Checks if an object is of a certain class, either directly or by inheritance
   function HopLib:is_object_of_class(object, c)
+    if object == c then
+      return true
+    end
     local m = getmetatable(object)
     while m do
        if m == c then
@@ -48,6 +64,29 @@ if not HopLib then
     end
     return false
   end
+  
+  -- Internal functions from here on
+  function HopLib:load()
+    local file = io.open(self.save_path .. "HopLib.txt", "r")
+    if file then
+      local data = json.decode(file:read("*all")) or {}
+      file:close()
+      for k, v in pairs(data) do
+        self.settings[k] = v
+      end
+    end
+  end
+  
+  function HopLib:save()
+    local file = io.open(self.save_path .. "HopLib.txt", "w+")
+    if file then
+      file:write(json.encode(self.settings))
+      file:close()
+    end
+  end
+  
+  -- Load settings
+  HopLib:load()
 
 end
 
