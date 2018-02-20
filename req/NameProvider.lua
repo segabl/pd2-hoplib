@@ -22,6 +22,7 @@ function NameProvider:_init_names()
     drug_lord_boss = { default = "Ernesto Sosa" },
     old_hoxton_mission = { default = "Hoxton" },
     spa_vip = { default = "Charon" },
+    locke = { default = "Vernon Locke", wwh = "Mr. Blonde" },
     phalanx_vip = { default = "Neville Winters" },
     phalanx_minion = { default = "Phalanx Shield" },
     bank_manager = { default = "Bank Manager", dah = "Ralph Garnet" },
@@ -50,7 +51,7 @@ function NameProvider:_create_name_entry_from_tweak_data_id(tweak)
   if not tweak then
     return
   end
-  local name = tweak:gsub("_female", ""):pretty(true):gsub("Swat", "SWAT"):gsub("Fbi", "FBI")
+  local name = tweak:gsub("_female", ""):pretty(true):gsub("_swat", "SWAT"):gsub("fbi_heavy", "MFR")
   self._names[tweak] = { [self._current_level_id] = name }
   return name
 end
