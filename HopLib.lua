@@ -12,14 +12,6 @@ if not HopLib then
   HopLib.mod_path = ModPath
   HopLib.save_path = SavePath
   
-  HopLib.name_providers = {
-    default = NameProvider
-  }
-  
-  HopLib.settings = {
-    name_provider = "default"
-  }
-  
   HopLib.language_keys = {
     [Idstring("english"):key()] = "english",
     [Idstring("german"):key()] = "german",
@@ -34,23 +26,9 @@ if not HopLib then
   -- Returns the current NameProvider instance
   function HopLib:name_provider()
     if not self._name_provider then
-      local provider = self.name_providers[self.settings.name_provider] or self.name_providers.default
-      self._name_provider = provider:new()
+      self._name_provider = NameProvider:new()
     end
     return self._name_provider
-  end
-  
-  -- Registers a custom name provider that can be selected by the user
-  function HopLib:register_name_provider(name, provider_class)
-    if (self:is_object_of_class(provider_class, NameProvider)) then
-      if not self.name_providers[name] then
-        self.name_providers[name] = provider
-      else
-        log("[HopLib] ERROR: name provider with name \"" .. name .. "\" already exists!")
-      end
-    else
-      log("[HopLib] ERROR: Trying to register a name provider that isn't inherited from NameProvider!")
-    end
   end
   
   -- Returns the current UnitInfoManager instance
@@ -76,33 +54,10 @@ if not HopLib then
     return false
   end
   
-  -- Returns the language string of the game language
+  -- Returns the language of the game
   function HopLib:get_game_language()
     return self.language_keys[SystemInfo:language():key()] or "english"
   end
-  
-  -- Internal functions from here on
-  function HopLib:load()
-    local file = io.open(self.save_path .. "HopLib.txt", "r")
-    if file then
-      local data = json.decode(file:read("*all")) or {}
-      file:close()
-      for k, v in pairs(data) do
-        self.settings[k] = v
-      end
-    end
-  end
-  
-  function HopLib:save()
-    local file = io.open(self.save_path .. "HopLib.txt", "w+")
-    if file then
-      file:write(json.encode(self.settings))
-      file:close()
-    end
-  end
-  
-  -- Load settings
-  HopLib:load()
 
 end
 

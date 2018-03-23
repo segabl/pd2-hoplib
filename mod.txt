@@ -7,11 +7,12 @@
   "undisablable" : true,
   "color" : "0.043 0.808 0.6",
   "image" : "mod.png",
-  "version" : "1.4",
+  "version" : "1.5",
   "updates" : [ { "identifier" : "hoplib" } ],
   "hooks" : [
     { "hook_id" : "core/lib/setups/coresetup", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/managers/group_ai_states/groupaistatebase", "script_path" : "HopLib.lua" },
+    { "hook_id" : "lib/managers/menumanager", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/network/handlers/unitnetworkhandler", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/units/enemies/cop/copdamage", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/units/equipment/sentry_gun/sentrygundamage", "script_path" : "HopLib.lua" }
