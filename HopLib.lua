@@ -20,6 +20,17 @@ if not HopLib then
     name_provider = "default"
   }
   
+  HopLib.language_keys = {
+    [Idstring("english"):key()] = "english",
+    [Idstring("german"):key()] = "german",
+    [Idstring("french"):key()] = "french",
+    [Idstring("italian"):key()] = "italian",
+    [Idstring("spanish"):key()] = "spanish",
+    [Idstring("russian"):key()] = "russian",
+    [Idstring("dutch"):key()] = "dutch",
+    [Idstring("swedish"):key()] = "swedish"
+  }
+  
   -- Returns the current NameProvider instance
   function HopLib:name_provider()
     if not self._name_provider then
@@ -63,6 +74,11 @@ if not HopLib then
        m = m.super
     end
     return false
+  end
+  
+  -- Returns the language string of the game language
+  function HopLib:get_game_language()
+    return self.language_keys[SystemInfo:language():key()] or "english"
   end
   
   -- Internal functions from here on
