@@ -133,7 +133,7 @@ function UnitInfo:is_special()
 end
 
 function UnitInfo:is_boss()
-  return self._is_special
+  return self._is_boss
 end
 
 function UnitInfo:is_female()
