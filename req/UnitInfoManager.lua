@@ -77,7 +77,7 @@ function UnitInfo:key()
 end
 
 function UnitInfo:id()
-  return self._id
+  return self._unit_id
 end
 
 function UnitInfo:type()
