@@ -3,6 +3,7 @@ UnitInfo = UnitInfo or class()
 function UnitInfo:init(unit, u_key, manager)
   self._unit = unit
   self._unit_key = u_key
+  self._unit_id = unit:id()
   self._type = "unknown"
   self._name = u_key
   self._damage = 0
@@ -67,6 +68,18 @@ function UnitInfo:update_damage(damage, is_kill)
   end
 end
 
+function UnitInfo:unit()
+  return self._unit
+end
+
+function UnitInfo:key()
+  return self._unit_key
+end
+
+function UnitInfo:id()
+  return self._id
+end
+
 function UnitInfo:type()
   return self._type
 end
@@ -83,8 +96,48 @@ function UnitInfo:nickname()
   return self._nickname or self._name
 end
 
+function UnitInfo:owner()
+  return self._owner
+end
+
 function UnitInfo:user()
   return self._thrower or self
+end
+
+function UnitInfo:damage()
+  return self._damage
+end
+
+function UnitInfo:kills()
+  return self._kills
+end
+
+function UnitInfo:peer()
+  return self._peer
+end
+
+function UnitInfo:level()
+  return self._level
+end
+
+function UnitInfo:rank()
+  return self._rank
+end
+
+function UnitInfo:color_id()
+  return self._color_id
+end
+
+function UnitInfo:is_special()
+  return self._is_special
+end
+
+function UnitInfo:is_boss()
+  return self._is_special
+end
+
+function UnitInfo:is_female()
+  return self._female
 end
 
 
