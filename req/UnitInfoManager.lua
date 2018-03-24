@@ -56,10 +56,6 @@ function UnitInfo:init(unit, u_key, manager)
   end
 end
 
-function UnitInfo:user()
-  return self._thrower or self
-end
-
 function UnitInfo:update_damage(damage, is_kill)
   self._damage = self._damage + damage
   if is_kill then
@@ -71,9 +67,26 @@ function UnitInfo:update_damage(damage, is_kill)
   end
 end
 
+function UnitInfo:type()
+  return self._type
+end
+
+function UnitInfo:sub_type()
+  return self._sub_type
+end
+
+function UnitInfo:name()
+  return self._name
+end
+
 function UnitInfo:nickname()
   return self._nickname or self._name
 end
+
+function UnitInfo:user()
+  return self._thrower or self
+end
+
 
 UnitInfoManager = UnitInfoManager or class()
 
