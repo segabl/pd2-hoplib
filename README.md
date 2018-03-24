@@ -2,7 +2,6 @@
 Collection of functions and useful tools used in multiple of my mods
 
 ## Classes
-----------
 ### NameProvider
 Provides names based on a tweak_data id
 
@@ -13,7 +12,6 @@ The English localization file does not contain every existing unit name, as the 
 Collects and provides some information about units
 
 ## Hooks
---------
 HopLib provides the following hooks:
 - ``HopLibOnUnitDamaged`` with parameters ``(unit, damage_info)``
 - ``HopLibOnUnitDied`` with parameters ``(unit, damage_info)``
