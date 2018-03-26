@@ -31,20 +31,5 @@
   "unit_name_phalanx_vip" : "Neville Winters",
   "unit_name_phalanx_minion" : "Phalanx Shield",
   "unit_name_bank_manager" : "Bank Manager",
-  "unit_name_bank_manager_dah" : "Ralph Garnet",
-  "unit_name_deathvox_shield" : "ZEAL Shield",
-  "unit_namedeathvox_heavyar" : "ZEAL Heavy AR",
-  "unit_name_deathvox_lightar" : "ZEAL Light AR",
-  "unit_name_deathvox_guard" : "G-Man",
-  "unit_name_deathvox_lightshot" : "ZEAL Light Shotgunner",
-  "unit_name_deathvox_heavyshot" : "ZEAL Heavy Shotgunner",
-  "unit_name_deathvox_taser" : "ZEAL Taser",
-  "unit_name_deathvox_sniper_assault" : "ZEAL Assault Sniper",
-  "unit_name_deathvox_cloaker" : "ZEAL Cloaker",
-  "unit_name_deathvox_medic" : "ZEAL Medic",
-  "unit_name_deathvox_grenadier" : "ZEAL Grenadier",
-  "unit_name_deathvox_greendozer" : "ZEAL Shotgun Bulldozer",
-  "unit_name_deathvox_blackdozer" : "ZEAL Saiga-12 Bulldozer",
-  "unit_name_deathvox_lmgdozer" : "ZEAL M249 Bulldozer",
-  "unit_name_deathvox_medicdozer" : "ZEAL Medicdozer"
+  "unit_name_bank_manager_dah" : "Ralph Garnet"
 }
