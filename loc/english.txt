@@ -16,9 +16,16 @@
   "unit_name_drug_lord_boss" : "Ernesto Sosa",
   "unit_name_drug_lord_boss_stealth" : "Ernesto Sosa",
   "unit_name_old_hoxton_mission" : "Hoxton",
+  "unit_name_old_hoxton_mission_berry" : "Vernon Locke",
+  "unit_name_old_hoxton_mission_rvd" : "Mr. Blonde",
+  "unit_name_chavez_boss" : "Chavez",
+  "unit_escort_undercover" : "Eugene Sturr",
+  "unit_escort_undercover_run" : "Matt Roscoe",
+  "unit_escort_undercover_rvd" : "Reservoir Dog",
+  "unit_escort_chinese_prisoner" : "Kazuo",
+  "unit_escort_cfo" : "CFO",
   "unit_name_spa_vip" : "Charon",
   "unit_name_phalanx_vip" : "Neville Winters",
   "unit_name_phalanx_minion" : "Phalanx Shield",
-  "unit_name_bank_manager" : "Bank Manager",
   "unit_name_bank_manager_dah" : "Ralph Garnet"
 }
