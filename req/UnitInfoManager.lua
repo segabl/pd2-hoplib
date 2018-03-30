@@ -165,16 +165,16 @@ function UnitInfoManager:_create_info(unit, u_key)
   return entry
 end
 
-function UnitInfoManager:get_info(unit)
-  local u_key = alive(unit) and unit:key()
+function UnitInfoManager:get_info(unit, u_key)
+  u_key = u_key or alive(unit) and unit:key()
   if not u_key then
     return
   end
   return self._infos[u_key] or self:_create_info(unit, u_key)
 end
 
-function UnitInfoManager:get_user_info(unit)
-  local u_key = alive(unit) and unit:key()
+function UnitInfoManager:get_user_info(unit, u_key)
+  u_key = u_key or alive(unit) and unit:key()
   if not u_key then
     return
   end
