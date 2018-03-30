@@ -6,18 +6,17 @@ Collection of functions and useful tools, currently mostly about retrieving info
 
 ### NameProvider
 
-Provides names based on a tweak_data id
+Provides names based on a tweak_data id. The active ``NameProvider`` instance can be retrieved by calling ``HopLib:name_provider()``. Theres only one relevant function that can be called on the ``NameProvider`` instance:
 
-#### Translating unit names
+- ``NameProvider:name_by_id(tweak)`` Returns the name based on ``tweak``. It will return the name provided in the localization file if available, otherwise it will prettify ``tweak`` (remove underscores, capitalize letters).
 
-The English localization file does not contain every existing unit name, as the NameProvider constructs most of the names from the unit's tweak_table id. If you want to translate a unit name that is not part of the English localization, you can simply add it to your localization file by constructing the key like ``unit_name_TWEAKTABLEID`` (or ``unit_name_TWEAKTABLEID_LEVELID`` if the unit should have a different name depending on the heist played).
+The English localization file does not contain every existing unit name, as the ``NameProvider`` constructs most of the names from the unit's tweak_table id. If you want to translate a unit name that is not part of the English localization, you can simply add it to your localization file by constructing the key like ``unit_name_ID`` (or ``unit_name_ID_LEVELID`` if the unit should have a different name depending on the heist played).
 
 ### UnitInfoManager
 
-Can be used to return information about a unit. Unit infos are created upon request (i.e. a call to ``get_info``) or by HopLib in certain cases.  
-The following functions can be called on the active ``UnitInfoManager`` instance, which can be retrieved by calling ``HopLib:unit_info_manager()``:
+Can be used to return information about a unit. Unit infos are created upon request (i.e. a call to ``get_info``) or by HopLib in certain cases. The following functions can be called on the active ``UnitInfoManager`` instance, which can be retrieved by calling ``HopLib:unit_info_manager()``:
 
-- ``UnitInfoManager:all_infos()`` Returns a table containing all unit infos.
+- ``UnitInfoManager:all_infos()`` Returns a table (indexed by unit key) containing all unit infos.
 - ``UnitInfoManager:get_info(unit, [u_key])`` Returns the information about ``unit`` (creates it if it doesn't have it yet).
 - ``UnitInfoManager:get_user_info(unit, [u_key])`` Returns the user of ``unit`` (shortcut for ``UnitInfoManager:get_info(unit):user()``).
 - ``UnitInfoManager:clear_info(unit, [u_key])`` Clears the information about ``unit``.
@@ -26,8 +25,7 @@ Providing the optional ``u_key`` skips the function's internal ``unit:key()`` wh
 
 #### UnitInfo
 
-The ``UnitInfoManager`` creates and returns ``UnitInfo`` objects, which contain various infos about the unit.  
-The following functions can be called on a ``UnitInfo`` retrieved from the ``UnitInfoManager``.
+The ``UnitInfoManager`` creates and returns ``UnitInfo`` instances, which contain information about the unit. The following functions can be called on a ``UnitInfo`` retrieved from the ``UnitInfoManager``:
 
 - ``UnitInfo:unit()`` Returns the unit.
 - ``UnitInfo:key()`` Returns the unit key.
