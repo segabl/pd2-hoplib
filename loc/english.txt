@@ -1,4 +1,5 @@
 {
+  "unit_name_fbi_heavy_swat" : "MFR Unit",
   "unit_name_spooc" : "Cloaker",
   "unit_name_tank_green" : "Bulldozer",
   "unit_name_tank_black" : "Blackdozer",
