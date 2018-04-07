@@ -6,11 +6,12 @@ Collection of functions and useful tools, currently mostly about retrieving info
 
 ### NameProvider
 
-Provides names based on a tweak_data id. The active ``NameProvider`` instance can be retrieved by calling ``HopLib:name_provider()``. Theres only one relevant function that can be called on the ``NameProvider`` instance:
+Provides names based on a unit name or tweak_data id. The active ``NameProvider`` instance can be retrieved by calling ``HopLib:name_provider()``. Theres two functions that can be called on the ``NameProvider`` instance:
 
-- ``NameProvider:name_by_id(tweak)`` Returns the name based on ``tweak``. It will return the name provided in the localization file if available, otherwise it will prettify ``tweak`` (remove underscores, capitalize letters).
+- ``NameProvider:name_by_id(tweak)`` Returns the name based on ``tweak``.
+- ``NameProvider:name_by_unit(unit)`` Returns the name based on the unit's name Idstring. This is done through a lookup table, so it is not guaranteed to return a name (Only works for units defined in ``CharacterTweakData:character_map()``.
 
-The English localization file does not contain every existing unit name, as the ``NameProvider`` constructs most of the names from the unit's tweak_table id. If you want to translate a unit name that is not part of the English localization, you can simply add it to your localization file by constructing the key like ``unit_name_ID`` (or ``unit_name_ID_LEVELID`` if the unit should have a different name depending on the heist played).
+The names are taken from the localization file if available, otherwise the modified string id (Capitalized words, removed underscores, etc) will be used as the name.
 
 ### UnitInfoManager
 
