@@ -5,8 +5,9 @@ NameProvider.TWEAK_REDIRECTS = {
 }
 
 function NameProvider:init()
-  self._unit_redirects = {}
   self._unit_mappings = {}
+  self._unit_redirects = {}
+  local is_client = Network:is_client()
   local char_map = tweak_data.character:character_map()
   -- thanks for forgetting about these 3, Overkill!
   table.insert(char_map.mad.list, "ene_akan_fbi_heavy_r870")
@@ -14,7 +15,7 @@ function NameProvider:init()
   table.insert(char_map.mad.list, "ene_akan_cs_heavy_r870")
   for _, cat in pairs(char_map) do
     for _, name in pairs(cat.list) do
-      self._unit_mappings[Idstring(cat.path .. name .. "/" .. name):key()] = name
+      self._unit_mappings[Idstring(is_client and cat.path .. name .. "/" .. name .. "_husk" or cat.path .. name .. "/" .. name):key()] = name
       self._unit_redirects[name] = name:gsub("_[0-9]+$", ""):gsub("_hvh", ""):gsub("^(civ_f?e?male).+", "%1")
     end
   end
