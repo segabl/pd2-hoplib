@@ -9,7 +9,7 @@ Collection of functions and useful tools, currently mostly about retrieving info
 Provides names based on a unit name or tweak_data id. The active ``NameProvider`` instance can be retrieved by calling ``HopLib:name_provider()``. Theres two functions that can be called on the ``NameProvider`` instance:
 
 - ``NameProvider:name_by_id(tweak)`` Returns the name based on ``tweak``.
-- ``NameProvider:name_by_unit(unit)`` Returns the name based on the unit's name Idstring. This is done through a lookup table, so it is not guaranteed to return a name (Only works for units defined in ``CharacterTweakData:character_map()``.
+- ``NameProvider:name_by_unit(unit)`` Returns the name based on the unit's name Idstring. This is done through a lookup table, so it is not guaranteed to return a name (Only works for units defined in ``CharacterTweakData:character_map()``).
 
 The names are taken from the localization file if available, otherwise the modified string id (Capitalized words, removed underscores, etc) will be used as the name.
 
