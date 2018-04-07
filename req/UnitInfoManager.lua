@@ -1,16 +1,10 @@
 UnitInfo = UnitInfo or class()
 
-UnitInfo.NO_STATS_NAME = {
-  tank_mini = true,
-  tank_medic = true
-}
-
 function UnitInfo:init(unit, u_key, manager)
   self._unit = unit
   self._unit_key = u_key
   self._unit_id = unit:id()
   self._type = "unknown"
-  self._name = u_key
   self._damage = 0
   self._kills = 0
   
@@ -38,14 +32,14 @@ function UnitInfo:init(unit, u_key, manager)
       self._name = u_base:nick_name()
     elseif self._owner or gstate._police[u_key] and gstate._police[u_key].is_converted or gstate:is_enemy_converted_to_criminal(unit) then
       self._sub_type = "joker"
-      self._name = HopLib:name_provider():name_by_id(not self.NO_STATS_NAME[u_base._tweak_table] and u_base._stats_name or u_base._tweak_table)
+      self._name = HopLib:name_provider():name_by_unit(unit) or HopLib:name_provider():name_by_id(u_base._tweak_table)
       self._nickname = u_base.kpr_minion_owner_peer_id and Keepers:GetJokerNameByPeer(u_base.kpr_minion_owner_peer_id)
       if not self._nickname or self._nickname == "" then
         self._nickname = self._owner and self._owner:nickname() .. "'s " .. self._name
       end
     elseif u_base.char_tweak then
       self._sub_type = HopLib:is_object_of_class(u_base, CivilianBase) and "civilian"
-      self._name = HopLib:name_provider():name_by_id(not self.NO_STATS_NAME[u_base._tweak_table] and u_base._stats_name or u_base._tweak_table)
+      self._name = HopLib:name_provider():name_by_unit(unit) or HopLib:name_provider():name_by_id(u_base._tweak_table)
       self._is_special = u_base:char_tweak().priority_shout and true
       self._is_boss = u_base._tweak_table:find("boss") and true
     end
