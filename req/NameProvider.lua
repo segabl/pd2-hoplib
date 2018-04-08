@@ -5,6 +5,17 @@ NameProvider.TWEAK_REDIRECTS = {
 }
 NameProvider.UNIT_MAPPIGS = {}
 NameProvider.UNIT_REDIRECTS = {}
+
+local function strip_weapon_name(name)
+  local oname = name
+  for _, w in pairs(tweak_data.character.weap_ids) do
+    name = name:gsub("_" .. w .. "$", "")
+    if name ~= oname then
+      break
+    end
+  end
+  return name
+end
 local is_client = Network:is_client()
 local char_map = tweak_data.character:character_map()
 -- thanks for not adding these, Overkill >.>
@@ -18,7 +29,7 @@ table.insert(char_map.mad.list, "ene_akan_cs_heavy_r870")
 for _, cat in pairs(char_map) do
   for _, name in pairs(cat.list) do
     NameProvider.UNIT_MAPPIGS[Idstring(is_client and cat.path .. name .. "/" .. name .. "_husk" or cat.path .. name .. "/" .. name):key()] = name
-    NameProvider.UNIT_REDIRECTS[name] = name:gsub("_[0-9]+$", ""):gsub("_hvh", ""):gsub("^(civ_f?e?male).+", "%1")
+    NameProvider.UNIT_REDIRECTS[name] = strip_weapon_name(name:gsub("_[0-9]+$", "")):gsub("_hvh", ""):gsub("^(civ_f?e?male).+", "%1")
   end
 end
 
@@ -30,7 +41,7 @@ function NameProvider:name_by_id(tweak)
   local name = "tweak_" .. tweak
   if not managers.localization._custom_localizations[name] then
     managers.localization:add_localized_strings({
-      [name] = tweak:pretty(true):gsub("Swat", "SWAT"):gsub("Fbi", "FBI"):gsub("Zeal", "ZEAL")
+      [name] = tweak:pretty(true)
     })
   end
   return managers.localization:text(name)
@@ -51,7 +62,7 @@ function NameProvider:name_by_unit(unit)
   name = self.UNIT_REDIRECTS[name] or name
   if not managers.localization._custom_localizations[name] then
     managers.localization:add_localized_strings({
-      [name] = name:gsub("^[a-z]+_", ""):pretty(true):gsub("Swat", "SWAT"):gsub("Fbi", "FBI"):gsub("Zeal", "ZEAL")
+      [name] = name:gsub("^[a-z]+_", ""):pretty(true)
     })
   end
   return managers.localization:text(name)
