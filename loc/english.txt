@@ -90,8 +90,6 @@
   "ene_zeal_swat_heavy" : "ZEAL Heavy SWAT",
   "ene_zeal_swat_heavy_sniper" : "ZEAL Heavy SWAT Sniper",
   "ene_zeal_swat_shield" : "Shield",
-  "name_ceiling_turret_module" : "Ceiling Turret",
-  "name_swat_van_turret_module" : "SWAT Turret",
   "npc_chavez" : "Chavez",
   "npc_cop" : "Cop",
   "npc_jamaican" : "Jamaican",
@@ -110,5 +108,7 @@
   "npc_sophia" : "Sophia",
   "npc_spa" : "Charon",
   "npc_vlad" : "Vlad",
-  "npc_yakuza_prisoner" : "Kazuo"
+  "npc_yakuza_prisoner" : "Kazuo",
+  "tweak_ceiling_turret_module" : "Ceiling Turret",
+  "tweak_swat_van_turret_module" : "SWAT Turret"
 }
