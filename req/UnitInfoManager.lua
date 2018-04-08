@@ -38,9 +38,9 @@ function UnitInfo:init(unit, u_key, manager)
         self._nickname = self._owner and self._owner:nickname() .. "'s " .. self._name
       end
     elseif u_base.char_tweak then
-      self._sub_type = HopLib:is_object_of_class(u_base, CivilianBase) and "civilian"
       self._name = HopLib:name_provider():name_by_unit(unit) or HopLib:name_provider():name_by_id(u_base._tweak_table)
-      self._is_special = u_base:char_tweak().priority_shout and true
+      self._is_civilian = HopLib:is_object_of_class(u_base, CivilianBase)
+      self._is_special = u_base:char_tweak() and u_base:char_tweak().priority_shout and true
       self._is_boss = u_base._tweak_table:find("boss") and true
     end
   elseif u_base.thrower_unit then
@@ -125,6 +125,10 @@ end
 
 function UnitInfo:color_id()
   return self._color_id
+end
+
+function UnitInfo:is_civilian()
+  return self._is_civilian
 end
 
 function UnitInfo:is_special()

@@ -32,7 +32,7 @@ The ``UnitInfoManager`` creates and returns ``UnitInfo`` instances, which contai
 - ``UnitInfo:key()`` Returns the unit key.
 - ``UnitInfo:id()`` Returns the unit id.
 - ``UnitInfo:type()`` Returns the type of the unit. Possible values are ``"player"``, ``"npc"``, ``"projectile"`` and ``"sentry"``.
-- ``UnitInfo:sub_type()`` Returns the sub type type of the unit (if available), depending on the main type. Possible values are ``"local_player"``, ``"remote_player"``, ``"team_ai"``, ``"joker"`` and ``"civilian"``.
+- ``UnitInfo:sub_type()`` Returns the sub type type of the unit (if available), depending on the main type. Possible values are ``"local_player"`` or ``"remote_player"`` for type ``"player"`` and ``"team_ai"`` or ``"joker"`` for type ``"npc"``.
 - ``UnitInfo:name()`` Returns the name of the unit.
 - ``UnitInfo:nickname()`` Returns the nickname of the unit (used for jokers and sentries). If it doesn't have one, returns the same as ``UnitInfo:name()``.
 - ``UnitInfo:owner()`` Returns the ``UnitInfo`` of the unit owner (used for jokers and sentries).
@@ -43,6 +43,7 @@ The ``UnitInfoManager`` creates and returns ``UnitInfo`` instances, which contai
 - ``UnitInfo:level()`` Returns the level if the unit is of type ``"player"``.
 - ``UnitInfo:rank()`` Returns the infamy rank if the unit is of type ``"player"``.
 - ``UnitInfo:color_id()`` Returns the color id of the unit.
+- ``UnitInfo:is_civilian()`` Returns ``true`` if the unit is a civilian.
 - ``UnitInfo:is_special()`` Returns ``true`` if the unit is a special enemy.
 - ``UnitInfo:is_boss()`` Returns ``true`` if the unit is a boss type enemy.
 - ``UnitInfo:is_female()`` Returns ``true`` if the unit is female (currently only works on enemies and civilians).
