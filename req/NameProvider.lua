@@ -7,7 +7,9 @@ NameProvider.UNIT_MAPPIGS = {}
 NameProvider.UNIT_REDIRECTS = {}
 local is_client = Network:is_client()
 local char_map = tweak_data.character:character_map()
--- thanks for forgetting about these 3, Overkill!
+-- thanks for not adding these, Overkill >.>
+table.insert(char_map.basic.list, "ene_city_swat_r870")
+table.insert(char_map.basic.list, "ene_city_shield")
 table.insert(char_map.mad.list, "ene_akan_fbi_heavy_r870")
 table.insert(char_map.mad.list, "ene_akan_fbi_shield_dw_sr2_smg")
 table.insert(char_map.mad.list, "ene_akan_cs_heavy_r870")
