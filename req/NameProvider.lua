@@ -26,6 +26,9 @@ table.insert(char_map.basic.list, "ene_swat_heavy_r870")
 table.insert(char_map.mad.list, "ene_akan_fbi_heavy_r870")
 table.insert(char_map.mad.list, "ene_akan_fbi_shield_dw_sr2_smg")
 table.insert(char_map.mad.list, "ene_akan_cs_heavy_r870")
+table.insert(char_map.friend.list, "ene_drug_lord_boss_stealth")
+table.insert(char_map.friend.list, "ene_thug_indoor_03")
+table.insert(char_map.friend.list, "ene_thug_indoor_04")
 for _, cat in pairs(char_map) do
   for _, name in pairs(cat.list) do
     NameProvider.UNIT_MAPPIGS[Idstring(is_client and cat.path .. name .. "/" .. name .. "_husk" or cat.path .. name .. "/" .. name):key()] = name
