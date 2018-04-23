@@ -34,6 +34,7 @@
   "ene_cop" : "警察",
   "ene_cop_female" : "警察",
   "ene_drug_lord_boss" : "埃内斯托索萨",
+  "ene_drug_lord_boss_stealth" : "埃内斯托索萨",
   "ene_fbi" : "FBI特工",
   "ene_fbi_boss" : "FBI特工",
   "ene_fbi_female" : "FBI特工",

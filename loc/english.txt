@@ -34,6 +34,7 @@
   "ene_cop" : "Cop",
   "ene_cop_female" : "Cop",
   "ene_drug_lord_boss" : "Ernesto Sosa",
+  "ene_drug_lord_boss_stealth" : "Ernesto Sosa",
   "ene_fbi" : "FBI Agent",
   "ene_fbi_boss" : "FBI Agent",
   "ene_fbi_female" : "FBI Agent",
