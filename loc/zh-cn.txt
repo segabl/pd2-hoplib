@@ -55,7 +55,7 @@
   "ene_hoxton_breakout_guard" : "FBI安全屋警卫",
   "ene_la_cop" : "警察",
   "ene_locke" : "弗农洛克",
-  "ene_male_commissioner" : "Commissioner Garret",
+  "ene_male_commissioner" : "Commissioner Garrett",
   "ene_male_crew" : "船员",
   "ene_male_hector" : "赫克托莫拉莱斯",
   "ene_medic" : "医疗者",

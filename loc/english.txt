@@ -55,7 +55,7 @@
   "ene_hoxton_breakout_guard" : "FBI Safe House Guard",
   "ene_la_cop" : "Cop",
   "ene_locke" : "Vernon Locke",
-  "ene_male_commissioner" : "Commissioner Garret",
+  "ene_male_commissioner" : "Commissioner Garrett",
   "ene_male_crew" : "Crew Member",
   "ene_male_hector" : "Hector Morales",
   "ene_medic" : "Medic",
