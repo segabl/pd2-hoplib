@@ -1,7 +1,8 @@
 NameProvider = NameProvider or class()
 
 NameProvider.TWEAK_REDIRECTS = {
-  ceiling_turret_module_no_idle = "ceiling_turret_module"
+  ceiling_turret_module_no_idle = "ceiling_turret_module",
+  ceiling_turret_module_longer_range = "ceiling_turret_module"
 }
 NameProvider.UNIT_MAPPIGS = {}
 NameProvider.UNIT_REDIRECTS = {}
