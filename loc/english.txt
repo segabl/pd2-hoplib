@@ -61,6 +61,8 @@
   "ene_medic" : "Medic",
   "ene_murkywater" : "Murkywater",
   "ene_murkywater_no_light" : "Murkywater",
+  "ene_murkywater_no_light_not_security" : "Murkywater",
+  "ene_murkywater_not_security" : "Murkywater",
   "ene_phalanx" : "Phalanx Shield",
   "ene_prisonguard_female" : "Prison Guard",
   "ene_prisonguard_male" : "Prison Guard",
@@ -104,6 +106,7 @@
   "npc_spa" : "Charon",
   "npc_vlad" : "Vlad",
   "npc_yakuza_prisoner" : "Kazuo",
+  "tweak_aa_turret_module" : "Anti-Aircraft Turret",
   "tweak_ceiling_turret_module" : "Ceiling Turret",
   "tweak_swat_van_turret_module" : "SWAT Turret"
 }

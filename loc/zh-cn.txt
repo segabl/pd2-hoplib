@@ -61,6 +61,8 @@
   "ene_medic" : "医疗者",
   "ene_murkywater" : "黑水兵",
   "ene_murkywater_no_light" : "黑水兵",
+  "ene_murkywater_no_light_not_security" : "黑水兵",
+  "ene_murkywater_not_security" : "黑水兵",
   "ene_phalanx" : "方阵持盾者",
   "ene_prisonguard_female" : "狱警",
   "ene_prisonguard_male" : "狱警",
@@ -104,6 +106,7 @@
   "npc_spa" : "卡戎",
   "npc_vlad" : "弗拉德",
   "npc_yakuza_prisoner" : "一夫",
+  "tweak_aa_turret_module" : "Anti-Aircraft Turret",
   "tweak_ceiling_turret_module" : "天花板炮塔",
   "tweak_swat_van_turret_module" : "特警炮塔"
 }
