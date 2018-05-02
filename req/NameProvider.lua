@@ -1,11 +1,18 @@
 NameProvider = NameProvider or class()
 
 NameProvider.TWEAK_REDIRECTS = {
-  ceiling_turret_module_no_idle = "ceiling_turret_module",
-  ceiling_turret_module_longer_range = "ceiling_turret_module"
+	ceiling_turret_module_no_idle = "ceiling_turret_module",
+	ceiling_turret_module_longer_range = "ceiling_turret_module"
 }
 NameProvider.UNIT_MAPPIGS = {}
-NameProvider.UNIT_REDIRECTS = {}
+NameProvider.UNIT_REDIRECTS = {
+	ene_drug_lord_boss_stealth = "ene_drug_lord_boss",
+	ene_lucke = "npc_locke",
+	ene_murkywater_no_light = "ene_murkywater",
+	ene_murkywater_no_light_not_security = "ene_murkywater",
+	ene_murkywater_not_security = "ene_murkywater",
+	npc_mr_pink_escort = "npc_mr_pink"
+}
 
 local function strip_weapon_name(name)
   local oname = name
