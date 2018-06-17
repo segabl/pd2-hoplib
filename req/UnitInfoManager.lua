@@ -5,6 +5,7 @@ function UnitInfo:init(unit, u_key, manager)
   self._unit_key = u_key
   self._unit_id = unit:id()
   self._type = "unknown"
+  self._name = "unknown"
   self._damage = 0
   self._kills = 0
   
@@ -23,9 +24,10 @@ function UnitInfo:init(unit, u_key, manager)
     self._kills = self._peer and self._peer._data_kills or 0
     self._color_id = cm:character_color_id_by_unit(unit)
   elseif HopLib:is_object_of_class(u_base, CopBase) then
+    local name_mapping = NameProvider.UNIT_MAPPIGS[unit:name():key()]
     self._type = "npc"
     self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
-    self._female = u_base._tweak_table:find("female") and true
+    self._female = (u_base._tweak_table:find("female") or name_mapping and name_mapping:find("female")) and true
     local gstate = managers.groupai:state()
     if gstate:is_unit_team_AI(unit) then
       self._sub_type = "team_ai"
