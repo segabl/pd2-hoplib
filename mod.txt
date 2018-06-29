@@ -5,6 +5,7 @@
   "blt_version" : 2,
   "priority" : 499,
   "undisablable" : true,
+  "is_library" : true,
   "color" : "0.043 0.808 0.6",
   "image" : "mod.png",
   "version" : "1.6",
