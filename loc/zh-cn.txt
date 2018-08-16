@@ -68,6 +68,7 @@
   "ene_prisonguard_male" : "狱警",
   "ene_security" : "安保",
   "ene_secret_service" : "特勤局特工",
+  "ene_secret_service_1_casino" : "特勤局特工",
   "ene_security_gensec" : "GenSec安保",
   "ene_security_manager" : "安保经理",
   "ene_shield" : "持盾者",

@@ -68,6 +68,7 @@
   "ene_prisonguard_male" : "Prison Guard",
   "ene_security" : "Security",
   "ene_secret_service" : "Secret Service Agent",
+  "ene_secret_service_1_casino" : "Secret Service Agent",
   "ene_security_gensec" : "GenSec Security",
   "ene_security_manager" : "Security Manager",
   "ene_shield" : "Shield",
