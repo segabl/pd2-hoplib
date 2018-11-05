@@ -5,7 +5,6 @@ function UnitInfo:init(unit, u_key, manager)
   self._unit_key = u_key
   self._unit_id = unit:id()
   self._type = "unknown"
-  self._name = "unknown"
   self._damage = 0
   self._kills = 0
   
@@ -56,6 +55,8 @@ function UnitInfo:init(unit, u_key, manager)
     self._is_special = u_base._tweak_table_id:find("turret") and true
     self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
   end
+
+  self._name = self._name or "unknown"
 end
 
 function UnitInfo:update_damage(damage, is_kill)
