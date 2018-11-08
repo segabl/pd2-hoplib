@@ -23,10 +23,10 @@ function UnitInfo:init(unit, u_key, manager)
     self._kills = self._peer and self._peer._data_kills or 0
     self._color_id = cm:character_color_id_by_unit(unit)
   elseif HopLib:is_object_of_class(u_base, CopBase) then
-    local name_mapping = NameProvider.UNIT_MAPPIGS[unit:name():key()]
+    local name_mapping = NameProvider.UNIT_MAPPIGS[unit:name():key()] or ""
     self._type = "npc"
     self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
-    self._female = (u_base._tweak_table:find("female") or name_mapping and name_mapping:find("female")) and true
+    self._female = (u_base._tweak_table:find("female") or name_mapping:find("female") or unit:movement()._machine:get_global("female") == 1) and true
     local gstate = managers.groupai:state()
     if gstate:is_unit_team_AI(unit) then
       self._sub_type = "team_ai"
@@ -157,29 +157,31 @@ function UnitInfoManager:all_infos()
   return self._infos
 end
 
-function UnitInfoManager:_create_info(unit, u_key)
+function UnitInfoManager:_create_info(unit, u_key, temp)
   if not alive(unit) or not u_key then
     return
   end
   local entry = UnitInfo:new(unit, u_key, self)
-  self._infos[u_key] = entry
+  if not temp then
+    self._infos[u_key] = entry
+  end
   return entry
 end
 
-function UnitInfoManager:get_info(unit, u_key)
+function UnitInfoManager:get_info(unit, u_key, temp)
   u_key = u_key or alive(unit) and unit:key()
   if not u_key then
     return
   end
-  return self._infos[u_key] or self:_create_info(unit, u_key)
+  return self._infos[u_key] or self:_create_info(unit, u_key, temp)
 end
 
-function UnitInfoManager:get_user_info(unit, u_key)
+function UnitInfoManager:get_user_info(unit, u_key, temp)
   u_key = u_key or alive(unit) and unit:key()
   if not u_key then
     return
   end
-  local info = self._infos[u_key] or self:_create_info(unit, u_key)
+  local info = self._infos[u_key] or self:_create_info(unit, u_key, temp)
   return info and info:user()
 end
 
