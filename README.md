@@ -6,7 +6,7 @@ Collection of functions and useful tools, currently mostly about retrieving info
 
 ### NameProvider
 
-Provides names based on a unit name or tweak_data id. The active ``NameProvider`` instance can be retrieved by calling ``HopLib:name_provider()``. Theres two functions that can be called on the ``NameProvider`` instance:
+Provides names based on a unit name or tweak_data id. The active ``NameProvider`` instance can be retrieved by calling ``HopLib:name_provider()``. There are two functions that can be called on the ``NameProvider`` instance:
 
 - ``NameProvider:name_by_id(tweak)`` Returns the name based on ``tweak``.
 - ``NameProvider:name_by_unit(unit)`` Returns the name based on the unit's name Idstring. This is done through a lookup table, so it is not guaranteed to return a name (Only works for units defined in ``CharacterTweakData:character_map()``).
@@ -18,11 +18,11 @@ The names are taken from the localization file if available, otherwise the modif
 Can be used to return information about a unit. Unit infos are created upon request (i.e. a call to ``get_info``) or by HopLib in certain cases. The following functions can be called on the active ``UnitInfoManager`` instance, which can be retrieved by calling ``HopLib:unit_info_manager()``:
 
 - ``UnitInfoManager:all_infos()`` Returns a table (indexed by unit key) containing all unit infos.
-- ``UnitInfoManager:get_info(unit, [u_key])`` Returns the information about ``unit`` (creates it if it doesn't have it yet).
-- ``UnitInfoManager:get_user_info(unit, [u_key])`` Returns the user of ``unit`` (shortcut for ``UnitInfoManager:get_info(unit):user()``).
 - ``UnitInfoManager:clear_info(unit, [u_key])`` Clears the information about ``unit``.
+- ``UnitInfoManager:get_info(unit, [u_key], [temp])`` Returns the information about ``unit`` (creates it if it doesn't have it yet).
+- ``UnitInfoManager:get_user_info(unit, [u_key], [temp])`` Returns the user of ``unit`` (shortcut for ``UnitInfoManager:get_info(unit):user()``).
 
-Providing the optional ``u_key`` skips the function's internal ``unit:key()`` which might be useful if the unit has already been deleted but you have its key.
+Providing the optional ``u_key`` skips the function's internal ``unit:key()`` which might be useful if the unit has already been deleted but you have its key. Setting the ``temp`` argument to true will retrieve the unit information but not save it to the ``UnitInfoManager`` which can be useful if you need the unit info after it has been cleared but don't want to recreate it yet.
 
 #### UnitInfo
 
@@ -46,12 +46,19 @@ The ``UnitInfoManager`` creates and returns ``UnitInfo`` instances, which contai
 - ``UnitInfo:is_civilian()`` Returns ``true`` if the unit is a civilian.
 - ``UnitInfo:is_special()`` Returns ``true`` if the unit is a special enemy.
 - ``UnitInfo:is_boss()`` Returns ``true`` if the unit is a boss type enemy.
-- ``UnitInfo:is_female()`` Returns ``true`` if the unit is female (currently only works on enemies and civilians).
+- ``UnitInfo:is_female()`` Returns ``true`` if the unit is female.
 
 ## Hooks
 
 HopLib provides the following hooks:
 
+- ``HopLibOnEnemyConverted`` with parameters ``(unit, player_unit)``
 - ``HopLibOnUnitDamaged`` with parameters ``(unit, damage_info)``
 - ``HopLibOnUnitDied`` with parameters ``(unit, damage_info)``
-- ``HopLibOnEnemyConverted`` with parameters ``(unit, player_unit)``
+
+## Utility
+
+HopLib also provides some utility functions:
+
+- ``HopLib:get_game_language()`` Returns the language the game is set to as a string.
+- ``HopLib:is_object_of_class(object, c)`` Returns ``true`` if ``object`` is of class ``c``, either directly or by inheritance.
