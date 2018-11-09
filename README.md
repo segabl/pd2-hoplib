@@ -52,7 +52,8 @@ The ``UnitInfoManager`` creates and returns ``UnitInfo`` instances, which contai
 
 HopLib provides the following hooks:
 
-- ``HopLibOnEnemyConverted`` with parameters ``(unit, player_unit)``
+- ``HopLibOnMinionAdded`` with parameters ``(unit, player_unit)``
+- ``HopLibOnMinionRemoved`` with parameters ``(unit)``
 - ``HopLibOnUnitDamaged`` with parameters ``(unit, damage_info)``
 - ``HopLibOnUnitDied`` with parameters ``(unit, damage_info)``
 

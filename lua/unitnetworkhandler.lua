@@ -13,6 +13,6 @@ function UnitNetworkHandler:mark_minion(unit, minion_owner_peer_id, convert_enem
   
   mark_minion_original(self, unit, minion_owner_peer_id, convert_enemies_health_multiplier_level, passive_convert_enemies_health_multiplier_level, sender, ...)
   
-  Hooks:Call("HopLibOnEnemyConverted", unit, player_unit)
+  Hooks:Call("HopLibOnMinionAdded", unit, player_unit)
   
 end

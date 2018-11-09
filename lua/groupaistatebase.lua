@@ -18,7 +18,20 @@ function GroupAIStateBase:convert_hostage_to_criminal(unit, peer_unit)
   convert_hostage_to_criminal_original(self, unit, peer_unit)
   
   if unit:brain()._logic_data.is_converted then
-    Hooks:Call("HopLibOnEnemyConverted", unit, player_unit)
+    Hooks:Call("HopLibOnMinionAdded", unit, player_unit)
   end
 
+end
+
+local _set_converted_police_original = GroupAIStateBase._set_converted_police
+function GroupAIStateBase:_set_converted_police(u_key, unit, ...)
+  
+  if not unit then
+    local minion_unit = self._converted_police[u_key]
+    if minion_unit then
+      Hooks:Call("HopLibOnMinionRemoved", minion_unit)
+    end
+  end
+
+  return _set_converted_police_original(self, u_key, unit, ...)
 end

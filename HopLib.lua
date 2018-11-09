@@ -7,7 +7,8 @@ if not HopLib then
   
   Hooks:Register("HopLibOnUnitDamaged")
   Hooks:Register("HopLibOnUnitDied")
-  Hooks:Register("HopLibOnEnemyConverted")
+  Hooks:Register("HopLibOnMinionAdded")
+  Hooks:Register("HopLibOnMinionRemoved")
   
   HopLib.mod_path = ModPath
   HopLib.save_path = SavePath
