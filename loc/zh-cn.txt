@@ -109,6 +109,7 @@
   "ene_zeal_swat_heavy" : "ZEAL重型特警",
   "ene_zeal_swat_heavy_sniper" : "ZEAL重型特警狙击手",
   "ene_zeal_swat_shield" : "持盾者",
+  "ene_zeal_tazer" : "泰瑟",
   "npc_chavez" : "查韦斯",
   "npc_cop" : "警察",
   "npc_jamaican" : "牙买加",

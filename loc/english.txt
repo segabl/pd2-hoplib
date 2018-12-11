@@ -109,6 +109,7 @@
   "ene_zeal_swat_heavy" : "ZEAL Heavy SWAT",
   "ene_zeal_swat_heavy_sniper" : "ZEAL Heavy SWAT Sniper",
   "ene_zeal_swat_shield" : "Shield",
+  "ene_zeal_tazer" : "Taser",
   "npc_chavez" : "Chavez",
   "npc_cop" : "Cop",
   "npc_jamaican" : "Jamaican",
