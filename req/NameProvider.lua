@@ -51,11 +51,7 @@ function NameProvider:name_by_id(tweak)
   return managers.localization:text(name)
 end
 
-function NameProvider:name_by_unit(unit)
-  if not alive(unit) then
-    return
-  end
-  local unit_name_key = unit:name():key()
+function NameProvider:name_by_unit_name_key(unit_name_key)
   local name = self.UNIT_MAPPIGS[unit_name_key]
   if not unit_name_key or not name then
     return
@@ -70,4 +66,11 @@ function NameProvider:name_by_unit(unit)
     })
   end
   return managers.localization:text(name)
+end
+
+function NameProvider:name_by_unit(unit)
+  if not alive(unit) then
+    return
+  end
+  return self:name_by_unit_name_key(unit:name():key())
 end
