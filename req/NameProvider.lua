@@ -17,7 +17,6 @@ local function strip_weapon_name(name)
   end
   return name
 end
-local is_client = Network:is_client()
 local char_map = tweak_data.character:character_map()
 -- thanks for not adding these, Overkill >.>
 table.insert(char_map.basic.list, "ene_city_swat_r870")
@@ -32,7 +31,8 @@ table.insert(char_map.friend.list, "ene_thug_indoor_03")
 table.insert(char_map.friend.list, "ene_thug_indoor_04")
 for _, cat in pairs(char_map) do
   for _, name in pairs(cat.list) do
-    NameProvider.UNIT_MAPPIGS[Idstring(is_client and cat.path .. name .. "/" .. name .. "_husk" or cat.path .. name .. "/" .. name):key()] = name
+    NameProvider.UNIT_MAPPIGS[Idstring(cat.path .. name .. "/" .. name):key()] = name
+    NameProvider.UNIT_MAPPIGS[Idstring(cat.path .. name .. "/" .. name .. "_husk"):key()] = name
     NameProvider.UNIT_REDIRECTS[name] = strip_weapon_name(name:gsub("_[0-9]+$", "")):gsub("_hvh", ""):gsub("^(civ_f?e?male).+", "%1")
   end
 end
