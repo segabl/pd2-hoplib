@@ -6,7 +6,9 @@ NameProvider.TWEAK_REDIRECTS = {
 }
 NameProvider.UNIT_MAPPIGS = {}
 NameProvider.UNIT_REDIRECTS = {}
+NameProvider.CLIENT_TO_SERVER_MAPPING = {}
 
+local is_client = Network:is_client()
 local function strip_weapon_name(name)
   local oname = name
   for _, w in pairs(tweak_data.character.weap_ids) do
@@ -29,10 +31,13 @@ table.insert(char_map.mad.list, "ene_akan_cs_heavy_r870")
 table.insert(char_map.friend.list, "ene_drug_lord_boss_stealth")
 table.insert(char_map.friend.list, "ene_thug_indoor_03")
 table.insert(char_map.friend.list, "ene_thug_indoor_04")
+local client_key, server_key
 for _, cat in pairs(char_map) do
   for _, name in pairs(cat.list) do
-    NameProvider.UNIT_MAPPIGS[Idstring(cat.path .. name .. "/" .. name):key()] = name
-    NameProvider.UNIT_MAPPIGS[Idstring(cat.path .. name .. "/" .. name .. "_husk"):key()] = name
+    server_key = Idstring(cat.path .. name .. "/" .. name):key()
+    client_key = Idstring(cat.path .. name .. "/" .. name .. "_husk"):key()
+    NameProvider.UNIT_MAPPIGS[server_key] = name
+    NameProvider.CLIENT_TO_SERVER_MAPPING[client_key] = server_key
     NameProvider.UNIT_REDIRECTS[name] = strip_weapon_name(name:gsub("_[0-9]+$", "")):gsub("_hvh", ""):gsub("^(civ_f?e?male).+", "%1")
   end
 end
@@ -52,7 +57,7 @@ function NameProvider:name_by_id(tweak)
 end
 
 function NameProvider:name_by_unit_name_key(unit_name_key)
-  local name = self.UNIT_MAPPIGS[unit_name_key]
+  local name = self.UNIT_MAPPIGS[is_client and self.CLIENT_TO_SERVER_MAPPING[unit_name_key] or unit_name_key]
   if not unit_name_key or not name then
     return
   end
