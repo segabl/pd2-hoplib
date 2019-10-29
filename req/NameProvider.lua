@@ -56,26 +56,24 @@ function NameProvider:name_by_id(tweak)
   return managers.localization:text(name)
 end
 
-function NameProvider:name_by_unit_name_key(unit_name_key)
-  local name = self.UNIT_MAPPIGS[is_client and self.CLIENT_TO_SERVER_MAPPING[unit_name_key] or unit_name_key]
-  if not unit_name_key or not name then
+function NameProvider:name_by_unit(unit, u_key)
+  u_key = u_key or alive(unit) and unit:name():key()
+  if not u_key then
+    return
+  end
+  local name = self.UNIT_MAPPIGS[is_client and self.CLIENT_TO_SERVER_MAPPING[u_key] or u_key]
+  if not name then
     return
   end
   if managers.localization._custom_localizations[name] then
     return managers.localization:text(name)
   end
-  name = self.UNIT_REDIRECTS[name] or name
-  if not managers.localization._custom_localizations[name] then
-    managers.localization:add_localized_strings({
-      [name] = name:gsub("^[a-z]+_", ""):pretty(true)
-    })
+  local redir_name = self.UNIT_REDIRECTS[name]
+  if managers.localization._custom_localizations[redir_name] then
+    return managers.localization:text(redir_name)
   end
+  managers.localization:add_localized_strings({
+    [name] = redir_name:gsub("^[a-z]+_", ""):pretty(true)
+  })
   return managers.localization:text(name)
-end
-
-function NameProvider:name_by_unit(unit)
-  if not alive(unit) then
-    return
-  end
-  return self:name_by_unit_name_key(unit:name():key())
 end
