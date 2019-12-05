@@ -9,7 +9,12 @@
   "color" : "0.043 0.808 0.6",
   "image" : "mod.png",
   "version" : "1.6",
-  "updates" : [ { "identifier" : "hoplib" } ],
+  "updates" : [
+    {
+      "identifier" : "pd2-hoplib",
+      "host": { "meta": "http://updates.hoppip.at/pd2-hoplib" }
+    }
+  ],
   "hooks" : [
     { "hook_id" : "lib/setups/setup", "script_path" : "HopLib.lua" },
     { "hook_id" : "lib/managers/group_ai_states/groupaistatebase", "script_path" : "HopLib.lua" },
