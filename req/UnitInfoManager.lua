@@ -1,4 +1,4 @@
-UnitInfo = UnitInfo or class()
+UnitInfo = class()
 
 function UnitInfo:init(unit, u_key, manager)
   self._unit = unit
@@ -147,7 +147,7 @@ function UnitInfo:is_female()
 end
 
 
-UnitInfoManager = UnitInfoManager or class()
+UnitInfoManager = class()
 
 function UnitInfoManager:init()
   self._infos = {}
