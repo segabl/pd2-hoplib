@@ -63,3 +63,4 @@ HopLib also provides some utility functions:
 
 - ``HopLib:get_game_language()`` Returns the language the game is set to as a string.
 - ``HopLib:is_object_of_class(object, c)`` Returns ``true`` if ``object`` is of class ``c``, either directly or by inheritance.
+- ``HopLib:load_assets(assets)`` Loads all files in the ``assets`` table. Entries must be tables containing ``ext``, ``path`` and ``file`` keys and may contain an optional ``override`` key.
