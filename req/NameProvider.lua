@@ -9,7 +9,6 @@ NameProvider.UNIT_REDIRECTS = {}
 NameProvider.CLIENT_TO_SERVER_MAPPING = {}
 
 function NameProvider:init()
-  local is_client = Network:is_client()
   local function strip_weapon_name(name)
     local oname = name
     for _, w in pairs(tweak_data.character.weap_ids) do
@@ -58,6 +57,7 @@ function NameProvider:name_by_id(tweak)
   return managers.localization:text(name)
 end
 
+local is_client = Network:is_client()
 function NameProvider:name_by_unit(unit, u_key)
   u_key = u_key or alive(unit) and unit:name():key()
   if not u_key then
