@@ -31,6 +31,7 @@ function NameProvider:init()
   table.insert(char_map.friend.list, "ene_drug_lord_boss_stealth")
   table.insert(char_map.friend.list, "ene_thug_indoor_03")
   table.insert(char_map.friend.list, "ene_thug_indoor_04")
+  table.insert(char_map.bex.list, "ene_swat_policia_federale_fbi")
   local client_key, server_key
   for _, cat in pairs(char_map) do
     for _, name in pairs(cat.list) do

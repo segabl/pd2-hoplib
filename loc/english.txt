@@ -113,6 +113,7 @@
   "ene_zeal_swat_shield" : "Shield",
   "ene_zeal_tazer" : "Taser",
   "ene_swat_policia_federale" : "Federal Police",
+  "ene_swat_policia_federale_fbi" : "Federal Police",
   "ene_swat_policia_federale_city" : "Federal Police",
   "ene_swat_policia_federale_city_fbi" : "Federal Police",
   "ene_swat_medic_policia_federale" : "Medic",
