@@ -1,29 +1,31 @@
 if not HopLib then
 
   _G.HopLib = {}
-  
+
   dofile(ModPath .. "req/UnitInfoManager.lua")
   dofile(ModPath .. "req/NameProvider.lua")
-  
+
   Hooks:Register("HopLibOnUnitDamaged")
   Hooks:Register("HopLibOnUnitDied")
   Hooks:Register("HopLibOnMinionAdded")
   Hooks:Register("HopLibOnMinionRemoved")
-  
+
   HopLib.mod_path = ModPath
   HopLib.save_path = SavePath
-  
+
   HopLib.language_keys = {
     [Idstring("english"):key()] = "english",
     [Idstring("german"):key()] = "german",
     [Idstring("french"):key()] = "french",
     [Idstring("italian"):key()] = "italian",
     [Idstring("spanish"):key()] = "spanish",
+    [Idstring("schinese"):key()] = "schinese",
     [Idstring("russian"):key()] = "russian",
+    [Idstring("japanese"):key()] = "japanese",
     [Idstring("dutch"):key()] = "dutch",
     [Idstring("swedish"):key()] = "swedish"
   }
-  
+
   -- Returns the current NameProvider instance
   function HopLib:name_provider()
     if not self._name_provider then
@@ -31,7 +33,7 @@ if not HopLib then
     end
     return self._name_provider
   end
-  
+
   -- Returns the current UnitInfoManager instance
   function HopLib:unit_info_manager()
     if not self._unit_info_manager then
@@ -39,7 +41,7 @@ if not HopLib then
     end
     return self._unit_info_manager
   end
-  
+
   -- Checks if an object is of a certain class, either directly or by inheritance
   function HopLib:is_object_of_class(object, c)
     if object == c then
@@ -54,7 +56,7 @@ if not HopLib then
     end
     return false
   end
-  
+
   -- Returns the language of the game
   function HopLib:get_game_language()
     return self.language_keys[SystemInfo:language():key()] or "english"
@@ -76,12 +78,12 @@ if not HopLib then
   end
 
   Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function(loc)
-  
+
     local language = "english"
     local system_language = HopLib:get_game_language()
     local blt_language = BLT.Localization:get_language().language
     local mod_language
-  
+
     local loc_path = HopLib.mod_path .. "loc/"
     if io.file_is_readable(loc_path .. system_language .. ".txt") then
       language = system_language
@@ -92,10 +94,10 @@ if not HopLib then
     if mod_language and io.file_is_readable(loc_path .. mod_language .. ".txt") then
       language = mod_language
     end
-  
+
     loc:load_localization_file(loc_path .. "english.txt")
     loc:load_localization_file(loc_path .. language .. ".txt")
-    
+
   end)
 
 end
