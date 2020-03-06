@@ -1,14 +1,14 @@
 {
   "name" : "HopLib",
   "description" : "Collection of functions and useful tools used in multiple of my mods",
-  "author" : "Shiny Hoppip",
+  "author" : "Hoppip",
   "blt_version" : 2,
   "priority" : 499,
   "undisablable" : true,
   "is_library" : true,
   "color" : "0.043 0.808 0.6",
   "image" : "mod.png",
-  "version" : "1.6",
+  "version" : "1.7",
   "updates" : [
     {
       "identifier" : "pd2-hoplib",

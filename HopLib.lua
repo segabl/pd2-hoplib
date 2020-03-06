@@ -62,6 +62,22 @@ if not HopLib then
     return self.language_keys[SystemInfo:language():key()] or "english"
   end
 
+  -- Returns the modded language
+  function HopLib:get_modded_language()
+    local mod_language = PD2KR and "korean"
+    local mod_language_table = {
+      ["PAYDAY 2 THAI LANGUAGE Mod"] = "thai",
+      ["PAYDAY 2 Translate in Portuguese Brazilian"] = "portuguese"
+    }
+    for _, mod in pairs(BLT and BLT.Mods:Mods() or {}) do
+      if mod:IsEnabled() and mod_language_table[mod:GetName()] then
+        mod_language = mod_language_table[mod:GetName()]
+        break
+      end
+    end
+    return mod_language
+  end
+
   -- Loads game assets from files
   function HopLib:load_assets(assets)
     local load_func
@@ -82,17 +98,7 @@ if not HopLib then
     local language = "english"
     local system_language = HopLib:get_game_language()
     local blt_language = BLT.Localization:get_language().language
-    local mod_language
-
-    local mod_language_table = {
-      ["PAYDAY 2 Translate in Portuguese Brazilian"] = "portuguese"
-    }
-    for _, mod in pairs(BLT and BLT.Mods:Mods() or {}) do
-      if mod:IsEnabled() and mod_language_table[mod:GetName()] then
-        mod_language = mod_language_table[mod:GetName()]
-        break
-      end
-    end
+    local mod_language = HopLib:get_modded_language()
 
     local loc_path = HopLib.mod_path .. "loc/"
     if io.file_is_readable(loc_path .. system_language .. ".txt") then
