@@ -1,5 +1,4 @@
-local _call_listeners_original = CopDamage._call_listeners
-function CopDamage:_call_listeners(damage_info, ...)
+Hooks:PreHook(CopDamage, "_on_damage_received", "_on_damage_received_hoplib", function (self, damage_info)
 
   if type(damage_info.damage) == "number" then
     local info = HopLib:unit_info_manager():get_user_info(damage_info.attacker_unit)
@@ -12,7 +11,5 @@ function CopDamage:_call_listeners(damage_info, ...)
       HopLib:unit_info_manager():clear_info(self._unit)
     end
   end
-  
-  return _call_listeners_original(self, damage_info, ...)
-  
-end
+
+end)
