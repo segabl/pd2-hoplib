@@ -1,4 +1,4 @@
-Hooks:PostHook(SentryGunDamage, "_apply_damage", "_apply_damage_hoplib", function (self, dmg_shield, dmg_body, is_local, attacker_unit)
+Hooks:PostHook(SentryGunDamage, "_apply_damage", "_apply_damage_hoplib", function (self, damage, dmg_shield, dmg_body, is_local, attacker_unit)
 
   local dmg = damage == "death" and (dmg_shield and self._SHIELD_HEALTH_INIT or dmg_body and self._HEALTH_INIT) or damage
   if type(dmg) == "number" then
