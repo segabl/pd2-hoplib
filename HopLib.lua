@@ -78,7 +78,7 @@ if not HopLib then
     return mod_language
   end
 
-  -- Loads localization file
+  -- Loads localization file and returns loaded language
   function HopLib:load_localization(path, localization_manager)
     local language
     local system_language = self:get_game_language()
@@ -101,6 +101,7 @@ if not HopLib then
     if language and language ~= "english" then
       localization_manager:load_localization_file(path .. language .. ".txt")
     end
+    return language or "english"
   end
 
   -- Loads game assets from files
