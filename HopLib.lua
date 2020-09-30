@@ -78,6 +78,31 @@ if not HopLib then
     return mod_language
   end
 
+  -- Loads localization file
+  function HopLib:load_localization(path, localization_manager)
+    local language
+    local system_language = self:get_game_language()
+    local blt_language = BLT.Localization:get_language().language
+    local mod_language = self:get_modded_language()
+
+    if io.file_is_readable(path .. system_language .. ".txt") then
+      language = system_language
+    end
+    if io.file_is_readable(path .. blt_language .. ".txt") then
+      language = blt_language
+    end
+    if mod_language and io.file_is_readable(path .. mod_language .. ".txt") then
+      language = mod_language
+    end
+
+    if io.file_is_readable(path .. "english.txt") then
+      localization_manager:load_localization_file(path .. "english.txt")
+    end
+    if language and language ~= "english" then
+      localization_manager:load_localization_file(path .. language .. ".txt")
+    end
+  end
+
   -- Loads game assets from files
   function HopLib:load_assets(assets)
     local load_func
@@ -93,26 +118,9 @@ if not HopLib then
     end
   end
 
-  Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function(loc)
+  Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function (loc)
 
-    local language = "english"
-    local system_language = HopLib:get_game_language()
-    local blt_language = BLT.Localization:get_language().language
-    local mod_language = HopLib:get_modded_language()
-
-    local loc_path = HopLib.mod_path .. "loc/"
-    if io.file_is_readable(loc_path .. system_language .. ".txt") then
-      language = system_language
-    end
-    if io.file_is_readable(loc_path .. blt_language .. ".txt") then
-      language = blt_language
-    end
-    if mod_language and io.file_is_readable(loc_path .. mod_language .. ".txt") then
-      language = mod_language
-    end
-
-    loc:load_localization_file(loc_path .. language .. ".txt")
-    loc:load_localization_file(loc_path .. "english.txt", false)
+    HopLib:load_localization(HopLib.mod_path .. "loc/", loc)
 
   end)
 
