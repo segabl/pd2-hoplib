@@ -52,10 +52,11 @@ The ``UnitInfoManager`` creates and returns ``UnitInfo`` instances, which contai
 
 HopLib provides the following hooks:
 
-- ``HopLibOnMinionAdded`` with parameters ``(unit, player_unit)``
-- ``HopLibOnMinionRemoved`` with parameters ``(unit)``
-- ``HopLibOnUnitDamaged`` with parameters ``(unit, damage_info)``
-- ``HopLibOnUnitDied`` with parameters ``(unit, damage_info)``
+- ``HopLibOnMinionAdded`` with parameters ``(unit, player_unit)`` Called when an enemy is converted by a player.
+- ``HopLibOnMinionRemoved`` with parameters ``(unit)`` Called when a converted enemy is removed (died, released, etc).
+- ``HopLibOnUnitDamaged`` with parameters ``(unit, damage_info)`` Called whenever a unit takes damage.
+- ``HopLibOnUnitDied`` with parameters ``(unit, damage_info)`` Called when a unit dies.
+- ``HopLibOnCharacterMapCreated`` with parameters ``(char_map)`` Called before ``CharacterTweakData:character_map`` returns.
 
 ## Utility
 
