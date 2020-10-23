@@ -2,6 +2,7 @@
   "name" : "HopLib",
   "description" : "Collection of functions and useful tools used in multiple of my mods",
   "author" : "Hoppip",
+  "contact" : "Hoppip#1630",
   "blt_version" : 2,
   "priority" : 499,
   "undisablable" : true,
