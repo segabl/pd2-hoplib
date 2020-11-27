@@ -107,7 +107,7 @@
   "ene_secret_service" : "Secret Service Agent",
   "ene_security_gensec" : "GenSec Security Guard",
   "ene_security_manager" : "Security Manager",
-  "ene_security" : "Security",
+  "ene_security" : "Security Guard",
   "ene_shield" : "Shield",
   "ene_sniper" : "Sniper",
   "ene_spook" : "Cloaker",
