@@ -9,7 +9,7 @@
   "is_library" : true,
   "color" : "0.043 0.808 0.6",
   "image" : "mod.png",
-  "version" : "1.8",
+  "version" : "1.9",
   "updates" : [
     {
       "identifier" : "pd2-hoplib",
