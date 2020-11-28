@@ -2,8 +2,10 @@ if not HopLib then
 
   _G.HopLib = {}
 
-  dofile(ModPath .. "req/UnitInfoManager.lua")
+  dofile(ModPath .. "req/MenuBuilder.lua")
   dofile(ModPath .. "req/NameProvider.lua")
+  dofile(ModPath .. "req/TableUtils.lua")
+  dofile(ModPath .. "req/UnitInfoManager.lua")
 
   Hooks:Register("HopLibOnUnitDamaged")
   Hooks:Register("HopLibOnUnitDied")
@@ -15,15 +17,16 @@ if not HopLib then
   HopLib.save_path = SavePath
 
   HopLib.language_keys = {
-    [Idstring("english"):key()] = "english",
-    [Idstring("german"):key()] = "german",
-    [Idstring("french"):key()] = "french",
-    [Idstring("italian"):key()] = "italian",
-    [Idstring("spanish"):key()] = "spanish",
-    [Idstring("schinese"):key()] = "schinese",
-    [Idstring("russian"):key()] = "russian",
-    [Idstring("japanese"):key()] = "japanese",
     [Idstring("dutch"):key()] = "dutch",
+    [Idstring("english"):key()] = "english",
+    [Idstring("french"):key()] = "french",
+    [Idstring("german"):key()] = "german",
+    [Idstring("italian"):key()] = "italian",
+    [Idstring("japanese"):key()] = "japanese",
+    [Idstring("korean"):key()] = "korean",
+    [Idstring("russian"):key()] = "russian",
+    [Idstring("schinese"):key()] = "schinese",
+    [Idstring("spanish"):key()] = "spanish",
     [Idstring("swedish"):key()] = "swedish"
   }
 
@@ -81,6 +84,12 @@ if not HopLib then
 
   -- Loads localization file and returns loaded language
   function HopLib:load_localization(path, localization_manager)
+    localization_manager = localization_manager or managers.localization
+    if not localization_manager then
+      log("[HopLib] ERROR: No localization manager available to load localization for " .. path .. "!")
+      return
+    end
+
     local language
     local system_language = self:get_game_language()
     local blt_language = BLT.Localization:get_language().language

@@ -4,7 +4,7 @@ local function safe_add(char_map_table, element)
   if not char_map_table or not char_map_table.list then
     if not logged_error then
       logged_error = true
-      log("WARNING: CharacterTweakData:character_map has missing data! One or more of your mods use outdated code, check for mods overriding this function!")
+      log("[HopLib] WARNING: CharacterTweakData:character_map has missing data! One or more of your mods use outdated code, check for mods overriding this function!")
     end
     return
   end
