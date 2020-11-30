@@ -3,6 +3,7 @@ MenuBuilder = class()
 function MenuBuilder:init(identifier, settings_table)
   self._id = identifier
   self._table = settings_table
+  self:load_settings()
 end
 
 function MenuBuilder:save_settings()
