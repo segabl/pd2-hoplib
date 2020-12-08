@@ -23,14 +23,13 @@ function MenuBuilder:load_settings()
   end
 end
 
-function MenuBuilder:create_menu(menu_nodes, parent_menu, values, order)
+function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
+  values = values or {}
   parent_menu = parent_menu or "blt_options"
   if not menu_nodes[parent_menu] then
     log("[MenuBuilder] ERROR: Parent menu node \"" .. parent_menu .. "\" does not exist (" .. self._id .. ")!")
     return
   end
-  values = values or {}
-  order = order or {}
 
   local locs = {}
   local loc = managers.localization
@@ -60,11 +59,12 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu, values, order)
     self:save_settings()
   end
 
+  local order = {}
   local function order_tables(tbl)
     local keys = table.map_keys(tbl)
     local num_keys = #keys
     for i, v in ipairs(keys) do
-      order[v] = order[v] or num_keys - i
+      order[v] = values[v] and values[v].priority or num_keys - i
       if type(tbl[v]) == "table" then
         order_tables(tbl[v])
       end
@@ -79,6 +79,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu, values, order)
       local t = type(v)
       local name_id = "menu_" .. self._id .. "_" .. k
       local desc_id = name_id .. "_desc"
+      local vals = values[k] or inherited_values
       if not loc:exists(name_id) then
         locs[name_id] = k:pretty()
       end
@@ -93,15 +94,14 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu, values, order)
           priority = order[k]
         })
       elseif t == "number" then
-        local vals = values[k] or inherited_values
-        if vals and type(vals[1]) == "string" then
+        if vals and vals.items then
           MenuHelper:AddMultipleChoice({
             id = hierarchy .. k,
             title = name_id,
             desc = loc:exists(desc_id) and desc_id,
             callback = self._id .. "_value",
             value = v,
-            items = vals,
+            items = vals.items,
             menu_id = menu_id,
             priority = order[k]
           })
@@ -112,9 +112,9 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu, values, order)
             desc = loc:exists(desc_id) and desc_id,
             callback = self._id .. "_value",
             value = v,
-            min = vals and vals[1] or 0,
-            max = vals and vals[2] or 1,
-            step = vals and vals[3] or 0.1,
+            min = vals and vals.min or 0,
+            max = vals and vals.max or 1,
+            step = vals and vals.step or 0.1,
             show_value = true,
             menu_id = menu_id,
             priority = order[k]
@@ -140,7 +140,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu, values, order)
           menu_id = menu_id,
           priority = order[k]
         })
-        loop_tables(v, node_id, hierarchy .. k, values[k] or inherited_values)
+        loop_tables(v, node_id, hierarchy .. k, vals)
       end
     end
     menu_nodes[menu_id] = MenuHelper:BuildMenu(menu_id, { back_callback = self._id .. "_save" })
