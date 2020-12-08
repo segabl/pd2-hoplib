@@ -31,11 +31,10 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
     return
   end
 
-  local locs = {}
+  local loc_strings = {}
   local loc = managers.localization
   if not loc then
-    log("[MenuBuilder] ERROR: Localization manager is not available yet (" .. self._id .. ")!")
-    return
+    log("[MenuBuilder] WARNING: Localization manager is not available yet (" .. self._id .. ")!")
   end
 
   local function set_value(item_name, item_value)
@@ -44,7 +43,12 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
     for i = 1, #hierarchy - 1 do
       tbl = tbl[hierarchy[i]]
     end
-    tbl[hierarchy[#hierarchy]] = item_value
+    local setting_name = hierarchy[#hierarchy]
+    local callback = values[setting_name] and values[setting_name].callback
+    tbl[setting_name] = item_value
+    if callback then
+      callback(item_value)
+    end
   end
 
   MenuCallbackHandler[self._id .. "_toggle"] = function (_, item)
@@ -79,15 +83,16 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
       local t = type(v)
       local name_id = "menu_" .. self._id .. "_" .. k
       local desc_id = name_id .. "_desc"
+      local desc = loc and loc:exists(desc_id) and desc_id
       local vals = values[k] or inherited_values
-      if not loc:exists(name_id) then
-        locs[name_id] = k:pretty()
+      if loc and not loc:exists(name_id) then
+        loc_strings[name_id] = k:pretty()
       end
       if t == "boolean" then
         MenuHelper:AddToggle({
           id = hierarchy .. k,
           title = name_id,
-          desc = loc:exists(desc_id) and desc_id,
+          desc = desc,
           callback = self._id .. "_toggle",
           value = v,
           menu_id = menu_id,
@@ -98,7 +103,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
           MenuHelper:AddMultipleChoice({
             id = hierarchy .. k,
             title = name_id,
-            desc = loc:exists(desc_id) and desc_id,
+            desc = desc,
             callback = self._id .. "_value",
             value = v,
             items = vals.items,
@@ -109,7 +114,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
           MenuHelper:AddSlider({
             id = hierarchy .. k,
             title = name_id,
-            desc = loc:exists(desc_id) and desc_id,
+            desc = desc,
             callback = self._id .. "_value",
             value = v,
             min = vals and vals.min or 0,
@@ -124,7 +129,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
         MenuHelper:AddInput({
           id = hierarchy .. k,
           title = name_id,
-          desc = loc:exists(desc_id) and desc_id,
+          desc = desc,
           callback = self._id .. "_value",
           value = v,
           menu_id = menu_id,
@@ -135,7 +140,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
         MenuHelper:AddButton({
           id = hierarchy .. k,
           title = name_id,
-          desc = loc:exists(desc_id) and desc_id,
+          desc = desc,
           next_node = node_id,
           menu_id = menu_id,
           priority = order[k]
@@ -149,10 +154,12 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
 
   local name_id = "menu_" .. self._id
   local desc_id = name_id .. "_desc"
-  if not loc:exists(name_id) then
-    locs[name_id] = self._id:pretty(true)
+  if loc then
+    if not loc:exists(name_id) then
+      loc_strings[name_id] = self._id:pretty(true)
+    end
+    loc:add_localized_strings(loc_strings)
   end
-  loc:add_localized_strings(locs)
 
-  MenuHelper:AddMenuItem(menu_nodes[parent_menu], self._id, name_id, loc:exists(desc_id) and desc_id)
+  MenuHelper:AddMenuItem(menu_nodes[parent_menu], self._id, name_id, loc and loc:exists(desc_id) and desc_id)
 end
