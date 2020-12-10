@@ -67,19 +67,6 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
     self:save_settings()
   end
 
-  local order = {}
-  local function order_tables(tbl)
-    local keys = table.map_keys(tbl)
-    local num_keys = #keys
-    for i, v in ipairs(keys) do
-      order[v] = self._params[v] and self._params[v].priority or num_keys - i
-      if type(tbl[v]) == "table" then
-        order_tables(tbl[v])
-      end
-    end
-  end
-  order_tables(self._table)
-
   local function loop_tables(tbl, menu_id, hierarchy, inherited_params)
     hierarchy = hierarchy and hierarchy .. "/" or ""
     MenuHelper:NewMenu(menu_id)
@@ -100,7 +87,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
           callback = self._id .. "_toggle",
           value = v,
           menu_id = menu_id,
-          priority = order[k]
+          priority = self._params[k] and self._params[k].priority
         })
       elseif t == "number" then
         if params and params.items then
@@ -112,7 +99,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
             value = v,
             items = params.items,
             menu_id = menu_id,
-            priority = order[k]
+            priority = self._params[k] and self._params[k].priority
           })
         else
           MenuHelper:AddSlider({
@@ -126,7 +113,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
             step = params and params.step or 0.1,
             show_value = true,
             menu_id = menu_id,
-            priority = order[k]
+            priority = self._params[k] and self._params[k].priority
           })
         end
       elseif t == "string" then
@@ -137,7 +124,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
           callback = self._id .. "_value",
           value = v,
           menu_id = menu_id,
-          priority = order[k]
+          priority = self._params[k] and self._params[k].priority
         })
       elseif t == "table" then
         local node_id = menu_id .. "_" .. k
@@ -147,7 +134,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
           desc = desc,
           next_node = node_id,
           menu_id = menu_id,
-          priority = order[k]
+          priority = self._params[k] and self._params[k].priority
         })
         loop_tables(v, node_id, hierarchy .. k, params)
       end
