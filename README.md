@@ -80,7 +80,7 @@ Additional utility functions that operate on tables:
 
 Automatically creates a options menu from an identifier and a settings table. The following functions exist:
 
-- ``MenuBuilder:new(id, settings_table)`` Creates a new menu builder with the mod identifier ``id`` using the table ``settings_table``.
+- ``MenuBuilder:new(id, settings_table, [settings_params])`` Creates a new menu builder with the mod identifier ``id`` using the table ``settings_table``. The optional parameter ``settings_params`` allows to specify custom ranges, items and priorities for specific settings.
 - ``MenuBuilder:save_settings()`` Saves the current settings. Called automatically when settings are changed via the options menu.
 - ``MenuBuilder:load_settings()`` Loads previously saved settings. Called automatically when the menu builder is created.
-- ``MenuBuilder:create_menu(menu_nodes, [values, parent_menu])`` Creates the menu. ``menu_nodes`` are the existing menu nodes obtained in the ``MenuManagerBuildCustomMenus`` hook. ``values`` allows to specify custom ranges, items and priorities for menu items. ``parent_menu`` determines where the menu is added, defaults to the BLT mod options menu.
+- ``MenuBuilder:create_menu(menu_nodes, [parent_menu])`` Creates the menu. ``menu_nodes`` are the existing menu nodes obtained in the ``MenuManagerBuildCustomMenus`` hook.  The optional parameter ``parent_menu`` determines where the menu is added, defaults to the BLT mod options menu.

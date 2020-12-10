@@ -1,11 +1,14 @@
 MenuBuilder = class()
 
-function MenuBuilder:init(identifier, settings_table)
+-- Creates a MenuBuilder instance with the given identifier, settings table and optional settings parameters (call as MenuBuilder:new)
+function MenuBuilder:init(identifier, settings_table, settings_params)
   self._id = identifier
   self._table = settings_table
+  self._params = settings_params or {}
   self:load_settings()
 end
 
+-- Saves the current settings (done automatically on settings change via menu)
 function MenuBuilder:save_settings()
   local file = io.open(SavePath .. self._id .. ".txt", "w+")
   if file then
@@ -14,6 +17,7 @@ function MenuBuilder:save_settings()
   end
 end
 
+-- Loads the current settings (done automatically on MenuBuilder creation)
 function MenuBuilder:load_settings()
   local file = io.open(SavePath .. self._id .. ".txt", "r")
   if file then
@@ -23,8 +27,8 @@ function MenuBuilder:load_settings()
   end
 end
 
-function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
-  values = values or {}
+-- Creates a new menu and places it in the optionally specified parent menu (blt_options by default)
+function MenuBuilder:create_menu(menu_nodes, parent_menu)
   parent_menu = parent_menu or "blt_options"
   if not menu_nodes[parent_menu] then
     log("[MenuBuilder] ERROR: Parent menu node \"" .. parent_menu .. "\" does not exist (" .. self._id .. ")!")
@@ -44,7 +48,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
       tbl = tbl[hierarchy[i]]
     end
     local setting_name = hierarchy[#hierarchy]
-    local callback = values[setting_name] and values[setting_name].callback
+    local callback = self._params[setting_name] and self._params[setting_name].callback
     tbl[setting_name] = item_value
     if callback then
       callback(item_value)
@@ -68,7 +72,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
     local keys = table.map_keys(tbl)
     local num_keys = #keys
     for i, v in ipairs(keys) do
-      order[v] = values[v] and values[v].priority or num_keys - i
+      order[v] = self._params[v] and self._params[v].priority or num_keys - i
       if type(tbl[v]) == "table" then
         order_tables(tbl[v])
       end
@@ -76,7 +80,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
   end
   order_tables(self._table)
 
-  local function loop_tables(tbl, menu_id, hierarchy, inherited_values)
+  local function loop_tables(tbl, menu_id, hierarchy, inherited_params)
     hierarchy = hierarchy and hierarchy .. "/" or ""
     MenuHelper:NewMenu(menu_id)
     for k, v in pairs(tbl) do
@@ -84,7 +88,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
       local name_id = "menu_" .. self._id .. "_" .. k
       local desc_id = name_id .. "_desc"
       local desc = loc and loc:exists(desc_id) and desc_id
-      local vals = values[k] or inherited_values
+      local params = self._params[k] or inherited_params
       if loc and not loc:exists(name_id) then
         loc_strings[name_id] = k:pretty()
       end
@@ -99,14 +103,14 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
           priority = order[k]
         })
       elseif t == "number" then
-        if vals and vals.items then
+        if params and params.items then
           MenuHelper:AddMultipleChoice({
             id = hierarchy .. k,
             title = name_id,
             desc = desc,
             callback = self._id .. "_value",
             value = v,
-            items = vals.items,
+            items = params.items,
             menu_id = menu_id,
             priority = order[k]
           })
@@ -117,9 +121,9 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
             desc = desc,
             callback = self._id .. "_value",
             value = v,
-            min = vals and vals.min or 0,
-            max = vals and vals.max or 1,
-            step = vals and vals.step or 0.1,
+            min = params and params.min or 0,
+            max = params and params.max or 1,
+            step = params and params.step or 0.1,
             show_value = true,
             menu_id = menu_id,
             priority = order[k]
@@ -145,7 +149,7 @@ function MenuBuilder:create_menu(menu_nodes, values, parent_menu)
           menu_id = menu_id,
           priority = order[k]
         })
-        loop_tables(v, node_id, hierarchy .. k, vals)
+        loop_tables(v, node_id, hierarchy .. k, params)
       end
     end
     menu_nodes[menu_id] = MenuHelper:BuildMenu(menu_id, { back_callback = self._id .. "_save" })
