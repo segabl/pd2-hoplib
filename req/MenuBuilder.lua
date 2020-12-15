@@ -2,155 +2,155 @@ MenuBuilder = class()
 
 -- Creates a MenuBuilder instance with the given identifier, settings table and optional settings parameters (call as MenuBuilder:new)
 function MenuBuilder:init(identifier, settings_table, settings_params)
-  self._id = identifier
-  self._table = settings_table
-  self._params = settings_params or {}
-  self:load_settings()
+	self._id = identifier
+	self._table = settings_table
+	self._params = settings_params or {}
+	self:load_settings()
 end
 
 -- Saves the current settings (done automatically on settings change via menu)
 function MenuBuilder:save_settings()
-  local file = io.open(SavePath .. self._id .. ".txt", "w+")
-  if file then
-    file:write(json.encode(self._table))
-    file:close()
-  end
+	local file = io.open(SavePath .. self._id .. ".txt", "w+")
+	if file then
+		file:write(json.encode(self._table))
+		file:close()
+	end
 end
 
 -- Loads the current settings (done automatically on MenuBuilder creation)
 function MenuBuilder:load_settings()
-  local file = io.open(SavePath .. self._id .. ".txt", "r")
-  if file then
-    local data = json.decode(file:read("*all"))
-    file:close()
-    table.replace(self._table, data or {}, true)
-  end
+	local file = io.open(SavePath .. self._id .. ".txt", "r")
+	if file then
+		local data = json.decode(file:read("*all"))
+		file:close()
+		table.replace(self._table, data or {}, true)
+	end
 end
 
 -- Creates a new menu and places it in the optionally specified parent menu (blt_options by default)
 function MenuBuilder:create_menu(menu_nodes, parent_menu)
-  parent_menu = parent_menu or "blt_options"
-  if not menu_nodes[parent_menu] then
-    log("[MenuBuilder] ERROR: Parent menu node \"" .. parent_menu .. "\" does not exist (" .. self._id .. ")!")
-    return
-  end
+	parent_menu = parent_menu or "blt_options"
+	if not menu_nodes[parent_menu] then
+		log("[MenuBuilder] ERROR: Parent menu node \"" .. parent_menu .. "\" does not exist (" .. self._id .. ")!")
+		return
+	end
 
-  local loc_strings = {}
-  local loc = managers.localization
-  if not loc then
-    log("[MenuBuilder] WARNING: Localization manager is not available yet (" .. self._id .. ")!")
-  end
+	local loc_strings = {}
+	local loc = managers.localization
+	if not loc then
+		log("[MenuBuilder] WARNING: Localization manager is not available yet (" .. self._id .. ")!")
+	end
 
-  local function set_value(item_name, item_value)
-    local hierarchy = item_name:split("/")
-    local tbl = self._table
-    for i = 1, #hierarchy - 1 do
-      tbl = tbl[hierarchy[i]]
-    end
-    local setting_name = hierarchy[#hierarchy]
-    local callback = self._params[setting_name] and self._params[setting_name].callback
-    tbl[setting_name] = item_value
-    if callback then
-      callback(item_value)
-    end
-  end
+	local function set_value(item_name, item_value)
+		local hierarchy = item_name:split("/")
+		local tbl = self._table
+		for i = 1, #hierarchy - 1 do
+			tbl = tbl[hierarchy[i]]
+		end
+		local setting_name = hierarchy[#hierarchy]
+		local callback = self._params[setting_name] and self._params[setting_name].callback
+		tbl[setting_name] = item_value
+		if callback then
+			callback(item_value)
+		end
+	end
 
-  MenuCallbackHandler[self._id .. "_toggle"] = function (_, item)
-    set_value(item:name(), item:value() == "on")
-  end
+	MenuCallbackHandler[self._id .. "_toggle"] = function (_, item)
+		set_value(item:name(), item:value() == "on")
+	end
 
-  MenuCallbackHandler[self._id .. "_value"] = function (_, item)
-    set_value(item:name(), item:value())
-  end
+	MenuCallbackHandler[self._id .. "_value"] = function (_, item)
+		set_value(item:name(), item:value())
+	end
 
-  MenuCallbackHandler[self._id .. "_save"] = function ()
-    self:save_settings()
-  end
+	MenuCallbackHandler[self._id .. "_save"] = function ()
+		self:save_settings()
+	end
 
-  local function loop_tables(tbl, menu_id, hierarchy, inherited_params)
-    hierarchy = hierarchy and hierarchy .. "/" or ""
-    MenuHelper:NewMenu(menu_id)
-    for k, v in pairs(tbl) do
-      local t = type(v)
-      local name_id = "menu_" .. self._id .. "_" .. k
-      local desc_id = name_id .. "_desc"
-      local desc = loc and loc:exists(desc_id) and desc_id
-      local params = self._params[k] or inherited_params
-      if loc and not loc:exists(name_id) then
-        loc_strings[name_id] = k:pretty()
-      end
-      if t == "boolean" then
-        MenuHelper:AddToggle({
-          id = hierarchy .. k,
-          title = name_id,
-          desc = desc,
-          callback = self._id .. "_toggle",
-          value = v,
-          menu_id = menu_id,
-          priority = self._params[k] and self._params[k].priority
-        })
-      elseif t == "number" then
-        if params and params.items then
-          MenuHelper:AddMultipleChoice({
-            id = hierarchy .. k,
-            title = name_id,
-            desc = desc,
-            callback = self._id .. "_value",
-            value = v,
-            items = params.items,
-            menu_id = menu_id,
-            priority = self._params[k] and self._params[k].priority
-          })
-        else
-          MenuHelper:AddSlider({
-            id = hierarchy .. k,
-            title = name_id,
-            desc = desc,
-            callback = self._id .. "_value",
-            value = v,
-            min = params and params.min or 0,
-            max = params and params.max or 1,
-            step = params and params.step or 0.1,
-            show_value = true,
-            menu_id = menu_id,
-            priority = self._params[k] and self._params[k].priority
-          })
-        end
-      elseif t == "string" then
-        MenuHelper:AddInput({
-          id = hierarchy .. k,
-          title = name_id,
-          desc = desc,
-          callback = self._id .. "_value",
-          value = v,
-          menu_id = menu_id,
-          priority = self._params[k] and self._params[k].priority
-        })
-      elseif t == "table" then
-        local node_id = menu_id .. "_" .. k
-        MenuHelper:AddButton({
-          id = hierarchy .. k,
-          title = name_id,
-          desc = desc,
-          next_node = node_id,
-          menu_id = menu_id,
-          priority = self._params[k] and self._params[k].priority
-        })
-        loop_tables(v, node_id, hierarchy .. k, params)
-      end
-    end
-    menu_nodes[menu_id] = MenuHelper:BuildMenu(menu_id, { back_callback = self._id .. "_save" })
-  end
-  loop_tables(self._table, self._id)
+	local function loop_tables(tbl, menu_id, hierarchy, inherited_params)
+		hierarchy = hierarchy and hierarchy .. "/" or ""
+		MenuHelper:NewMenu(menu_id)
+		for k, v in pairs(tbl) do
+			local t = type(v)
+			local name_id = "menu_" .. self._id .. "_" .. k
+			local desc_id = name_id .. "_desc"
+			local desc = loc and loc:exists(desc_id) and desc_id
+			local params = self._params[k] or inherited_params
+			if loc and not loc:exists(name_id) then
+				loc_strings[name_id] = k:pretty()
+			end
+			if t == "boolean" then
+				MenuHelper:AddToggle({
+					id = hierarchy .. k,
+					title = name_id,
+					desc = desc,
+					callback = self._id .. "_toggle",
+					value = v,
+					menu_id = menu_id,
+					priority = self._params[k] and self._params[k].priority
+				})
+			elseif t == "number" then
+				if params and params.items then
+					MenuHelper:AddMultipleChoice({
+						id = hierarchy .. k,
+						title = name_id,
+						desc = desc,
+						callback = self._id .. "_value",
+						value = v,
+						items = params.items,
+						menu_id = menu_id,
+						priority = self._params[k] and self._params[k].priority
+					})
+				else
+					MenuHelper:AddSlider({
+						id = hierarchy .. k,
+						title = name_id,
+						desc = desc,
+						callback = self._id .. "_value",
+						value = v,
+						min = params and params.min or 0,
+						max = params and params.max or 1,
+						step = params and params.step or 0.1,
+						show_value = true,
+						menu_id = menu_id,
+						priority = self._params[k] and self._params[k].priority
+					})
+				end
+			elseif t == "string" then
+				MenuHelper:AddInput({
+					id = hierarchy .. k,
+					title = name_id,
+					desc = desc,
+					callback = self._id .. "_value",
+					value = v,
+					menu_id = menu_id,
+					priority = self._params[k] and self._params[k].priority
+				})
+			elseif t == "table" then
+				local node_id = menu_id .. "_" .. k
+				MenuHelper:AddButton({
+					id = hierarchy .. k,
+					title = name_id,
+					desc = desc,
+					next_node = node_id,
+					menu_id = menu_id,
+					priority = self._params[k] and self._params[k].priority
+				})
+				loop_tables(v, node_id, hierarchy .. k, params)
+			end
+		end
+		menu_nodes[menu_id] = MenuHelper:BuildMenu(menu_id, { back_callback = self._id .. "_save" })
+	end
+	loop_tables(self._table, self._id)
 
-  local name_id = "menu_" .. self._id
-  local desc_id = name_id .. "_desc"
-  if loc then
-    if not loc:exists(name_id) then
-      loc_strings[name_id] = self._id:pretty(true)
-    end
-    loc:add_localized_strings(loc_strings)
-  end
+	local name_id = "menu_" .. self._id
+	local desc_id = name_id .. "_desc"
+	if loc then
+		if not loc:exists(name_id) then
+			loc_strings[name_id] = self._id:pretty(true)
+		end
+		loc:add_localized_strings(loc_strings)
+	end
 
-  MenuHelper:AddMenuItem(menu_nodes[parent_menu], self._id, name_id, loc and loc:exists(desc_id) and desc_id)
+	MenuHelper:AddMenuItem(menu_nodes[parent_menu], self._id, name_id, loc and loc:exists(desc_id) and desc_id)
 end
