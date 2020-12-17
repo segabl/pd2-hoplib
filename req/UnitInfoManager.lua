@@ -44,10 +44,6 @@ function UnitInfo:init(unit, u_key, manager)
 			self._is_special = u_base:char_tweak() and u_base:char_tweak().priority_shout and true
 			self._is_boss = u_base._tweak_table:find("boss") and true
 		end
-	elseif u_base.thrower_unit then
-		self._type = "projectile"
-		self._name = HopLib:name_provider():name_by_id(u_base:get_name_id())
-		self._thrower = manager:get_info(u_base:thrower_unit())
 	elseif u_base.sentry_gun then
 		self._type = "sentry"
 		self._name = HopLib:name_provider():name_by_id(u_base._tweak_table_id)
@@ -86,7 +82,7 @@ function UnitInfo:type()
 	return self._type
 end
 
-function UnitInfo:sub_type()
+function UnitInfo:sub_type() -- deprecated
 	return self._type
 end
 
@@ -102,8 +98,8 @@ function UnitInfo:owner()
 	return self._owner
 end
 
-function UnitInfo:user()
-	return self._thrower or self
+function UnitInfo:user() -- deprecated
+	return self
 end
 
 function UnitInfo:damage()
@@ -176,13 +172,8 @@ function UnitInfoManager:get_info(unit, u_key, temp)
 	return self._infos[u_key] or self:_create_info(unit, u_key, temp)
 end
 
-function UnitInfoManager:get_user_info(unit, u_key, temp)
-	u_key = u_key or alive(unit) and unit:key()
-	if not u_key then
-		return
-	end
-	local info = self._infos[u_key] or self:_create_info(unit, u_key, temp)
-	return info and info:user()
+function UnitInfoManager:get_user_info(...) -- deprecated
+	return self:get_info(...)
 end
 
 function UnitInfoManager:clear_info(unit, u_key)

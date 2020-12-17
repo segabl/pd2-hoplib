@@ -19,10 +19,9 @@ Can be used to return information about a unit. Unit infos are created upon requ
 
 - ``UnitInfoManager:all_infos()`` Returns a table (indexed by unit key) containing all unit infos.
 - ``UnitInfoManager:clear_info(unit, [u_key])`` Clears the information about ``unit``.
-- ``UnitInfoManager:get_info(unit, [u_key], [temp])`` Returns the information about ``unit`` (creates it if it doesn't have it yet).
-- ``UnitInfoManager:get_user_info(unit, [u_key], [temp])`` Returns the user of ``unit`` (shortcut for ``UnitInfoManager:get_info(unit):user()``).
+- ``UnitInfoManager:get_info(unit, [u_key], [temp])`` Returns the information about ``unit`` (creates it if it doesn't have it yet). Setting the ``temp`` argument to true will retrieve the unit information but not save it.
 
-Providing the optional ``u_key`` skips the function's internal ``unit:key()`` which might be useful if the unit has already been deleted but you have its key. Setting the ``temp`` argument to true will retrieve the unit information but not save it to the ``UnitInfoManager`` which can be useful if you need the unit info after it has been cleared but don't want to recreate it yet.
+Providing the optional ``u_key`` skips the function's internal ``unit:key()`` which might be useful if the unit has already been deleted but you have its key.
 
 #### UnitInfo
 
@@ -31,11 +30,10 @@ The ``UnitInfoManager`` creates and returns ``UnitInfo`` instances, which contai
 - ``UnitInfo:unit()`` Returns the unit.
 - ``UnitInfo:key()`` Returns the unit key.
 - ``UnitInfo:id()`` Returns the unit id.
-- ``UnitInfo:type()`` Returns the type of the unit. Possible values are ``"local_player"``, ``"remote_player"``, ``"npc"``, ``"team_ai"``, ``"joker"``, ``"projectile"`` and ``"sentry"``.
+- ``UnitInfo:type()`` Returns the type of the unit. Possible values are ``"local_player"``, ``"remote_player"``, ``"npc"``, ``"team_ai"``, ``"joker"`` and ``"sentry"``.
 - ``UnitInfo:name()`` Returns the name of the unit.
 - ``UnitInfo:nickname()`` Returns the nickname of the unit (used for jokers and sentries). If it doesn't have one, returns the same as ``UnitInfo:name()``.
-- ``UnitInfo:owner()`` Returns the ``UnitInfo`` of the unit owner (used for jokers and sentries).
-- ``UnitInfo:user()`` Returns the ``UnitInfo`` of the unit user (currently only used for projectiles). If it doesn't have one, returns itself.
+- ``UnitInfo:owner()`` Returns the ``UnitInfo`` of the unit owner if it has one (used for jokers and sentries).
 - ``UnitInfo:damage()`` Returns the amount of damage the unit has dealt.
 - ``UnitInfo:kills()`` Returns the number of kills the unit made.
 - ``UnitInfo:peer()`` Returns the peer object if the unit is of type ``"player"``.

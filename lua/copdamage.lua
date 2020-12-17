@@ -1,7 +1,7 @@
 Hooks:PreHook(CopDamage, "_call_listeners", "_call_listeners_hoplib", function (self, damage_info)
 
 	if type(damage_info.damage) == "number" then
-		local info = HopLib:unit_info_manager():get_user_info(damage_info.attacker_unit)
+		local info = HopLib:unit_info_manager():get_info(damage_info.attacker_unit)
 		if info then
 			info:update_damage(damage_info.damage, self._dead)
 		end
