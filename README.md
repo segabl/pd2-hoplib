@@ -31,8 +31,7 @@ The ``UnitInfoManager`` creates and returns ``UnitInfo`` instances, which contai
 - ``UnitInfo:unit()`` Returns the unit.
 - ``UnitInfo:key()`` Returns the unit key.
 - ``UnitInfo:id()`` Returns the unit id.
-- ``UnitInfo:type()`` Returns the type of the unit. Possible values are ``"player"``, ``"npc"``, ``"projectile"`` and ``"sentry"``.
-- ``UnitInfo:sub_type()`` Returns the sub type type of the unit (if available), depending on the main type. Possible values are ``"local_player"`` or ``"remote_player"`` for type ``"player"`` and ``"team_ai"`` or ``"joker"`` for type ``"npc"``.
+- ``UnitInfo:type()`` Returns the type of the unit. Possible values are ``"local_player"``, ``"remote_player"``, ``"npc"``, ``"team_ai"``, ``"joker"``, ``"projectile"`` and ``"sentry"``.
 - ``UnitInfo:name()`` Returns the name of the unit.
 - ``UnitInfo:nickname()`` Returns the nickname of the unit (used for jokers and sentries). If it doesn't have one, returns the same as ``UnitInfo:name()``.
 - ``UnitInfo:owner()`` Returns the ``UnitInfo`` of the unit owner (used for jokers and sentries).

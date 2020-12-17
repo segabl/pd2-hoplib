@@ -8,13 +8,12 @@ function UnitInfo:init(unit, u_key, manager)
 	self._damage = 0
 	self._kills = 0
 
-	local u_base = unit:base()
+	local u_base = unit:base() or {}
 	local cm = managers.criminals
 
 	self._owner = manager:get_info(u_base._minion_owner or u_base.get_owner and u_base:get_owner() or u_base.kpr_minion_owner_peer_id and cm:character_unit_by_peer_id(u_base.kpr_minion_owner_peer_id))
 	if u_base.is_husk_player or u_base.is_local_player then
-		self._type = "player"
-		self._sub_type = u_base.is_local_player and "local_player" or "remote_player"
+		self._type = u_base.is_local_player and "local_player" or "remote_player"
 		self._peer = unit:network():peer()
 		self._name = u_base.is_local_player and managers.network.account:username() or self._peer and self._peer:name()
 		self._level = u_base.is_local_player and managers.experience:current_level() or self._peer and self._peer:level()
@@ -29,10 +28,10 @@ function UnitInfo:init(unit, u_key, manager)
 		self._female = (u_base._tweak_table:find("female") or name_mapping:find("female") or unit:movement()._machine:get_global("female") == 1) and true
 		local gstate = managers.groupai:state()
 		if gstate:is_unit_team_AI(unit) then
-			self._sub_type = "team_ai"
+			self._type = "team_ai"
 			self._name = u_base:nick_name()
 		elseif self._owner or gstate._police[u_key] and gstate._police[u_key].is_converted or gstate:is_enemy_converted_to_criminal(unit) then
-			self._sub_type = "joker"
+			self._type = "joker"
 			self._name = HopLib:name_provider():name_by_unit(unit) or HopLib:name_provider():name_by_id(u_base._tweak_table)
 			local get_joker_name_by_peer = Keepers and (Keepers.GetJokerNameByPeer or Keepers.get_joker_name_by_peer)
 			self._nickname = u_base.kpr_minion_owner_peer_id and get_joker_name_by_peer(Keepers, u_base.kpr_minion_owner_peer_id)
@@ -88,7 +87,7 @@ function UnitInfo:type()
 end
 
 function UnitInfo:sub_type()
-	return self._sub_type
+	return self._type
 end
 
 function UnitInfo:name()
