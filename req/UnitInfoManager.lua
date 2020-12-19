@@ -82,10 +82,6 @@ function UnitInfo:type()
 	return self._type
 end
 
-function UnitInfo:sub_type() -- deprecated
-	return self._type
-end
-
 function UnitInfo:name()
 	return self._name
 end
@@ -96,10 +92,6 @@ end
 
 function UnitInfo:owner()
 	return self._owner
-end
-
-function UnitInfo:user() -- deprecated
-	return self
 end
 
 function UnitInfo:damage()
@@ -170,10 +162,6 @@ function UnitInfoManager:get_info(unit, u_key, temp)
 		return
 	end
 	return self._infos[u_key] or self:_create_info(unit, u_key, temp)
-end
-
-function UnitInfoManager:get_user_info(...) -- deprecated
-	return self:get_info(...)
 end
 
 function UnitInfoManager:clear_info(unit, u_key)
