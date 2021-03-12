@@ -68,18 +68,18 @@ if not HopLib then
 
 	-- Returns the modded language
 	function HopLib:get_modded_language()
-		local mod_language = PD2KR and "korean"
+		local mod_language = PD2KR and "korean" or PD2PTBR and "portuguese"
+		if mod_language then
+			return mod_language
+		end
 		local mod_language_table = {
-			["PAYDAY 2 THAI LANGUAGE Mod"] = "thai",
-			["PAYDAY 2 Translate in Portuguese Brazilian"] = "portuguese"
+			["PAYDAY 2 THAI LANGUAGE Mod"] = "thai"
 		}
 		for _, mod in pairs(BLT and BLT.Mods:Mods() or {}) do
 			if mod:IsEnabled() and mod_language_table[mod:GetName()] then
-				mod_language = mod_language_table[mod:GetName()]
-				break
+				return mod_language_table[mod:GetName()]
 			end
 		end
-		return mod_language
 	end
 
 	-- Loads localization file and returns loaded language
