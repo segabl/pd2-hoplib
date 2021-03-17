@@ -75,6 +75,7 @@
 	"ene_male_crew" : "Crew Member",
 	"ene_male_hector" : "Hector Morales",
 	"ene_male_office_cop" : "Office Cop",
+	"ene_male_triad_gang" : "Gangster",
 	"ene_medic" : "Medic",
 	"ene_mex_security_guard" : "Security Guard",
 	"ene_mex_thug_outdoor" : "Thug",

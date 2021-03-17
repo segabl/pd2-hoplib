@@ -75,6 +75,7 @@
 	"ene_male_crew" : "船员",
 	"ene_male_hector" : "赫克特·莫拉莱斯",
 	"ene_male_office_cop" : "公务警员",
+	"ene_male_triad_gang" : "黑帮",
 	"ene_medic" : "医疗兵",
 	"ene_mex_security_guard" : "保安",
 	"ene_mex_thug_outdoor" : "恶徒",
