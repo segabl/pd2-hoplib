@@ -36,7 +36,7 @@ function UnitInfo:init(unit, u_key, manager)
 			local get_joker_name_by_peer = Keepers and (Keepers.GetJokerNameByPeer or Keepers.get_joker_name_by_peer)
 			self._nickname = u_base.kpr_minion_owner_peer_id and get_joker_name_by_peer(Keepers, u_base.kpr_minion_owner_peer_id)
 			if not self._nickname or self._nickname == "" then
-				self._nickname = self._owner and self._owner:nickname() .. "'s " .. self._name
+				self._nickname = self._owner and managers.localization:text("hoplib_owners_unit", { OWNER = self._owner:nickname(), UNIT = self._name })
 			end
 		elseif u_base.char_tweak then
 			self._name = HopLib:name_provider():name_by_unit(unit) or HopLib:name_provider():name_by_id(u_base._tweak_table)
@@ -47,7 +47,7 @@ function UnitInfo:init(unit, u_key, manager)
 	elseif u_base.sentry_gun then
 		self._type = "sentry"
 		self._name = HopLib:name_provider():name_by_id(u_base._tweak_table_id)
-		self._nickname = self._owner and self._owner:nickname() .. "'s " .. self._name
+		self._nickname = self._owner and managers.localization:text("hoplib_owners_unit", { OWNER = self._owner:nickname(), UNIT = self._name })
 		self._is_special = u_base._tweak_table_id:find("turret") and true
 		self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
 	end

@@ -1,4 +1,5 @@
 {
+	"hoplib_owners_unit" : "$UNIT de $OWNER",
 	"civ_female_bank_manager" : "Gerente do Banco",
 	"civ_female" : "Civil",
 	"civ_male_bain" : "Bain",
