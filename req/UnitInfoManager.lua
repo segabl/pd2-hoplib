@@ -50,6 +50,7 @@ function UnitInfo:init(unit, u_key, manager)
 		self._nickname = self._owner and managers.localization:text("hoplib_owners_unit", { OWNER = self._owner:nickname(), UNIT = self._name })
 		self._is_special = u_base._tweak_table_id:find("turret") and true
 		self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
+		self._update_owner_stats = self._owner and true
 	end
 
 	self._name = self._name or "unknown"
@@ -63,6 +64,9 @@ function UnitInfo:update_damage(damage, is_kill)
 	if self._peer then
 		self._peer._data_damage = self._damage
 		self._peer._data_kills = self._kills
+	end
+	if self._update_owner_stats and self._owner then
+		self._owner:update_damage(damage, is_kill)
 	end
 end
 
