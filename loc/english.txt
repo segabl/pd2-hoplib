@@ -102,7 +102,7 @@
 	"ene_murkywater_sniper" : "Sniper",
 	"ene_murkywater_tazer" : "Taser",
 	"ene_murkywater" : "Murkywater",
-	"ene_phalanx" : "Phalanx Shield",
+	"ene_phalanx" : "Winters Shield",
 	"ene_policia" : "Cop",
 	"ene_prisonguard_female" : "Prison Guard",
 	"ene_prisonguard_male" : "Prison Guard",
