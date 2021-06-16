@@ -5,6 +5,7 @@
 	"civ_male_bain" : "Bain",
 	"civ_male_bank_manager" : "Gerente do Banco",
 	"civ_male_locke_escort" : "Vernon Locke",
+	"civ_male_vlad" : "Vlad",
 	"civ_male" : "Civil",
 	"ene_akan_cs_cop" : "Mercenário",
 	"ene_akan_cs_heavy" : "Mercenário Tático",
