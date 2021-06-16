@@ -28,8 +28,6 @@ function CharacterTweakData:character_map(...)
 	safe_add(char_map.friend, "ene_thug_indoor_04")
 	safe_add(char_map.bex, "ene_swat_policia_federale_fbi")
 	safe_add(char_map.bex, "ene_swat_policia_federale_fbi_r870")
-	safe_add(char_map.chas, "ene_male_chas_police_01")
-	safe_add(char_map.chas, "ene_male_chas_police_02")
 	safe_add(char_map.chas, "ene_male_triad_01")
 
 	Hooks:Call("HopLibOnCharacterMapCreated", char_map)
