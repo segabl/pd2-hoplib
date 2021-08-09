@@ -129,22 +129,6 @@ if not HopLib then
 		end
 	end
 
-	-- Overrides a function preserving any existing hooks
-	function HopLib:override(object, func_name, func)
-		local pre_hooks = Hooks._prehooks and Hooks._prehooks[object] and Hooks._prehooks[object][func_name]
-		local post_hooks = Hooks._posthooks and Hooks._posthooks[object] and Hooks._posthooks[object][func_name]
-		if pre_hooks or post_hooks then
-			if pre_hooks then
-				pre_hooks.original = func
-			end
-			if post_hooks then
-				post_hooks.original = func
-			end
-		else
-			object[func_name] = func
-		end
-	end
-
 	Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function (loc)
 
 		HopLib:load_localization(HopLib.mod_path .. "loc/", loc)

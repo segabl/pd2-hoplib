@@ -64,7 +64,6 @@ HopLib also provides some utility functions:
 - ``HopLib:load_localization(path, [localization_manager])`` Automatically chooses the correct language file in the ``path`` directory and loads it in ``localization_manager``. Tries to use the registered ``LocalizationManager`` if ``localization_manager`` is not specified. Returns the language loaded.
 - ``HopLib:is_object_of_class(object, c)`` Returns ``true`` if ``object`` is of class ``c``, either directly or by inheritance.
 - ``HopLib:load_assets(assets)`` Loads all files in the ``assets`` table. Entries must be tables containing ``ext``, ``path`` and ``file`` keys and may contain an optional ``override`` key.
-- ``HopLib:override(object, func_name, func)`` Overrides a function but preserves existing pre and post hooks made tot hat function.
 
 ### Table Utility
 
