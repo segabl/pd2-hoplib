@@ -2,7 +2,7 @@
 function table.union(tbl1, tbl2)
 	for k, v in pairs(tbl2) do
 		if type(v) == "table" then
-			tbl1[k] = tbl1[k] or {}
+			tbl1[k] = type(tbl1[k]) =="table" and tbl1[k] or {}
 			table.union(tbl1[k], v)
 		else
 			tbl1[k] = v
@@ -16,7 +16,7 @@ function table.replace(tbl1, tbl2, match_type)
 	for k, v in pairs(tbl2) do
 		if type(tbl1[k]) == type(v) or not match_type and tbl1[k] ~= nil then
 			if type(v) == "table" then
-				tbl1[k] = tbl1[k] or {}
+				tbl1[k] = type(tbl1[k]) =="table" and tbl1[k] or {}
 				table.replace(tbl1[k], v, match_type)
 			else
 				tbl1[k] = v
