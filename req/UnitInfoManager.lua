@@ -1,3 +1,4 @@
+---@class UnitInfo
 UnitInfo = class()
 
 function UnitInfo:init(unit, u_key, manager)
@@ -70,81 +71,118 @@ function UnitInfo:update_damage(damage, is_kill)
 	end
 end
 
+---Returns the unit
+---@return userdata
 function UnitInfo:unit()
 	return self._unit
 end
 
+---Returns the `unit:name():key()`
+---@return string
 function UnitInfo:key()
 	return self._unit_key
 end
 
+---Returns the unit's id
+---@return integer
 function UnitInfo:id()
 	return self._unit_id
 end
 
+---Returns the unit type
+---@return string
 function UnitInfo:type()
 	return self._type
 end
 
+---Returns the unit's name
+---@return string
 function UnitInfo:name()
 	return self._name
 end
 
+---Returns the unit's nickname
+---@return string
 function UnitInfo:nickname()
 	return self._nickname or self._name
 end
 
+---Returns the unit owner's UnitInfo
+---@return UnitInfo?
 function UnitInfo:owner()
 	return self._owner
 end
 
+---Returns the amount of damage dealt by the unit
+---@return integer
 function UnitInfo:damage()
 	return self._damage
 end
 
+---Returns the unit's number of kills
+---@return integer
 function UnitInfo:kills()
 	return self._kills
 end
 
+---Returns the peer object of the unit
+---@return table
 function UnitInfo:peer()
 	return self._peer
 end
 
+---Returns the level of the unit
+---@return integer?
 function UnitInfo:level()
 	return self._level
 end
 
+---Returns the infamy rank of the unit
+---@return integer?
 function UnitInfo:rank()
 	return self._rank
 end
 
+---Returns the chat color id of the unit
+---@return integer
 function UnitInfo:color_id()
 	return self._color_id
 end
 
+---Returns true if the unit is a civilian
+---@return boolean
 function UnitInfo:is_civilian()
 	return self._is_civilian
 end
 
+---Returns true if the unit is a special enemy
+---@return boolean
 function UnitInfo:is_special()
 	return self._is_special
 end
 
+---Returns true if the unit is a boss type enemy
+---@return boolean
 function UnitInfo:is_boss()
 	return self._is_boss
 end
 
+---Returns true if the unit is female
+---@return boolean
 function UnitInfo:is_female()
 	return self._female
 end
 
 
+---@class UnitInfoManager
 UnitInfoManager = class()
 
 function UnitInfoManager:init()
 	self._infos = {}
 end
 
+---Returns all existing UnitInfo instances
+---@return table<string, UnitInfo>
 function UnitInfoManager:all_infos()
 	return self._infos
 end
@@ -160,6 +198,11 @@ function UnitInfoManager:_create_info(unit, u_key, temp)
 	return entry
 end
 
+---Returns the UnitInfo instance of the unit (or unit key if provided)
+---@param unit? userdata @unit to get the UnitInfo instance of
+---@param u_key? string @`unit:name():key()` of the unit to get the UnitInfo instance of
+---@param temp? boolean @wether the UnitInfo should not be saved to the list
+---@return UnitInfo?
 function UnitInfoManager:get_info(unit, u_key, temp)
 	u_key = u_key or alive(unit) and unit:key()
 	if not u_key then
@@ -168,6 +211,9 @@ function UnitInfoManager:get_info(unit, u_key, temp)
 	return self._infos[u_key] or self:_create_info(unit, u_key, temp)
 end
 
+---Removes the UnitInfo instance of the unit (or unit key if provided)
+---@param unit? userdata @unit to clear the UnitInfo of
+---@param u_key? string @`unit:name():key()` of the unit to clear the UnitInfo of
 function UnitInfoManager:clear_info(unit, u_key)
 	u_key = u_key or alive(unit) and unit:key()
 	self._infos[u_key] = nil

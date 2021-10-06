@@ -30,7 +30,8 @@ if not HopLib then
 		[Idstring("swedish"):key()] = "swedish"
 	}
 
-	-- Returns the current NameProvider instance
+	---Returns the current NameProvider instance
+	---@return NameProvider
 	function HopLib:name_provider()
 		if not self._name_provider then
 			self._name_provider = NameProvider:new()
@@ -38,7 +39,8 @@ if not HopLib then
 		return self._name_provider
 	end
 
-	-- Returns the current UnitInfoManager instance
+	---Returns the current UnitInfoManager instance
+	---@return UnitInfoManager
 	function HopLib:unit_info_manager()
 		if not self._unit_info_manager then
 			self._unit_info_manager = UnitInfoManager:new()
@@ -46,7 +48,10 @@ if not HopLib then
 		return self._unit_info_manager
 	end
 
-	-- Checks if an object is of a certain class, either directly or by inheritance
+	---Checks if an object is of a certain class, either directly or by inheritance
+	---@param object table @object to check
+	---@param c table @class to check against
+	---@return boolean
 	function HopLib:is_object_of_class(object, c)
 		if object == c then
 			return true
@@ -61,12 +66,14 @@ if not HopLib then
 		return false
 	end
 
-	-- Returns the language of the game
+	---Returns the language of the game
+	---@return string
 	function HopLib:get_game_language()
 		return self.language_keys[SystemInfo:language():key()] or "english"
 	end
 
-	-- Returns the modded language
+	---Returns the modded language
+	---@return string
 	function HopLib:get_modded_language()
 		local mod_language = PD2KR and "korean" or PD2PTBR and "portuguese"
 		if mod_language then
@@ -82,7 +89,10 @@ if not HopLib then
 		end
 	end
 
-	-- Loads localization file and returns loaded language
+	---Loads localization file and returns loaded language
+	---@param path string @path to look for localization files in
+	---@param localization_manager? table @instance of the localization manager
+	---@return string
 	function HopLib:load_localization(path, localization_manager)
 		localization_manager = localization_manager or managers.localization
 		if not localization_manager then
@@ -114,7 +124,8 @@ if not HopLib then
 		return language or "english"
 	end
 
-	-- Loads game assets from files
+	---Loads game assets from files
+	---@param assets table<any, table> @table containing assets to load
 	function HopLib:load_assets(assets)
 		local load_func
 		if BLT.AssetManager then
@@ -130,9 +141,7 @@ if not HopLib then
 	end
 
 	Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function (loc)
-
 		HopLib:load_localization(HopLib.mod_path .. "loc/", loc)
-
 	end)
 
 end

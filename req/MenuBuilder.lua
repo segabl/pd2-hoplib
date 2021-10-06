@@ -1,6 +1,11 @@
+---@class MenuBuilder
 MenuBuilder = class()
 
--- Creates a MenuBuilder instance with the given identifier, settings table and optional settings parameters (call as MenuBuilder:new)
+---Creates a MenuBuilder instance (call as `MenuBuilder:new`)
+---@param identifier string @unique identifier of the mod the menu is built for
+---@param settings_table table @settings table to build the menu for
+---@param settings_params? table @optional parameters to be used for creating the menu
+---@return MenuBuilder
 function MenuBuilder:init(identifier, settings_table, settings_params)
 	self._id = identifier
 	self._table = settings_table
@@ -8,7 +13,7 @@ function MenuBuilder:init(identifier, settings_table, settings_params)
 	self:load_settings()
 end
 
--- Saves the current settings (done automatically on settings change via menu)
+---Saves the current settings (done automatically on settings change via menu)
 function MenuBuilder:save_settings()
 	local file = io.open(SavePath .. self._id .. ".txt", "w+")
 	if file then
@@ -17,7 +22,7 @@ function MenuBuilder:save_settings()
 	end
 end
 
--- Loads the current settings (done automatically on MenuBuilder creation)
+---Loads the current settings (done automatically on MenuBuilder creation)
 function MenuBuilder:load_settings()
 	local file = io.open(SavePath .. self._id .. ".txt", "r")
 	if file then
@@ -27,7 +32,9 @@ function MenuBuilder:load_settings()
 	end
 end
 
--- Creates a new menu and places it in the optionally specified parent menu (blt_options by default)
+---Creates a new menu and places it in the specified parent menu
+---@param menu_nodes table @menu nodes as provided by the ``MenuManagerBuildCustomMenus`` hook
+---@param parent_menu? string @defaults to blt_options
 function MenuBuilder:create_menu(menu_nodes, parent_menu)
 	parent_menu = parent_menu or "blt_options"
 	if not menu_nodes[parent_menu] then

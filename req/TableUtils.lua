@@ -1,4 +1,7 @@
--- Merges all values from tbl2 into tbl1, replacing existing values in tbl1
+---Merges all values from tbl2 into tbl1, replacing existing values in tbl1
+---@param tbl1 table @table to union into
+---@param tbl2 table @table to union from
+---@return table
 function table.union(tbl1, tbl2)
 	for k, v in pairs(tbl2) do
 		if type(v) == "table" then
@@ -11,7 +14,11 @@ function table.union(tbl1, tbl2)
 	return tbl1
 end
 
--- Replaces only existing values in tbl1 with values from tbl2, if match_type is set, value types must match
+---Replaces only existing values in tbl1 with values from tbl2
+---@param tbl1 table @table to replace values in
+---@param tbl2 table @table to take values from
+---@param match_type boolean @wether value types must match to be replaced
+---@return table
 function table.replace(tbl1, tbl2, match_type)
 	for k, v in pairs(tbl2) do
 		if type(tbl1[k]) == type(v) or not match_type and tbl1[k] ~= nil then
@@ -26,7 +33,10 @@ function table.replace(tbl1, tbl2, match_type)
 	return tlb1
 end
 
--- Calls a function for every non-table value, recurses function call for table values
+---Calls a function for every non-table value, recurses function call for table values
+---@param tbl table @table to run `func` on
+---@param func function @function to run for each entry
+---@return table
 function table.recurse(tbl, func)
 	for k, v in pairs(tbl) do
 		if type(v) == "table" then

@@ -1,3 +1,6 @@
+local is_client = Network:is_client()
+
+---@class NameProvider
 NameProvider = class()
 
 NameProvider.TWEAK_REDIRECTS = {
@@ -31,6 +34,9 @@ function NameProvider:init()
 	end
 end
 
+---Returns a localized name based on the tweak data id
+---@param tweak string @tweak data id to get the name for
+---@return string
 function NameProvider:name_by_id(tweak)
 	if not tweak then
 		return
@@ -45,7 +51,10 @@ function NameProvider:name_by_id(tweak)
 	return managers.localization:text(name)
 end
 
-local is_client = Network:is_client()
+---Returns a localized name based on the unit (or unit key if provided)
+---@param unit? userdata @unit to get the name for
+---@param u_key? string @`unit:name():key()` to get the name for
+---@return string?
 function NameProvider:name_by_unit(unit, u_key)
 	u_key = u_key or alive(unit) and unit:name():key()
 	if not u_key then
