@@ -5,15 +5,18 @@ function UnitInfo:init(unit, u_key, manager)
 	self._unit = unit
 	self._unit_key = u_key
 	self._unit_id = unit:id()
-	self._type = "unknown"
 	self._damage = 0
 	self._kills = 0
 
-	local u_base = unit:base() or {}
+	local u_base = unit:base()
 	local cm = managers.criminals
 
-	self._owner = manager:get_info(u_base._minion_owner or u_base.get_owner and u_base:get_owner() or u_base.kpr_minion_owner_peer_id and cm:character_unit_by_peer_id(u_base.kpr_minion_owner_peer_id))
-	if u_base.is_husk_player or u_base.is_local_player then
+	if not u_base then
+		if unit:vehicle_driving() then
+			self._type = "vehicle"
+			self._name = managers.localization:text(unit:vehicle_driving()._tweak_data.name_id)
+		end
+	elseif u_base.is_husk_player or u_base.is_local_player then
 		self._type = u_base.is_local_player and "local_player" or "remote_player"
 		self._peer = unit:network():peer()
 		self._name = u_base.is_local_player and managers.network.account:username() or self._peer and self._peer:name()
@@ -25,6 +28,7 @@ function UnitInfo:init(unit, u_key, manager)
 	elseif HopLib:is_object_of_class(u_base, CopBase) then
 		local name_mapping = HopLib:name_provider().UNIT_MAPPIGS[unit:name():key()] or ""
 		self._type = "npc"
+		self._owner = manager:get_info(u_base._minion_owner or u_base.kpr_minion_owner_peer_id and cm:character_unit_by_peer_id(u_base.kpr_minion_owner_peer_id))
 		self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
 		self._female = (u_base._tweak_table:find("female") or name_mapping:find("female") or unit:movement()._machine:get_global("female") == 1) and true
 		local gstate = managers.groupai:state()
@@ -47,6 +51,7 @@ function UnitInfo:init(unit, u_key, manager)
 		end
 	elseif u_base.sentry_gun then
 		self._type = "sentry"
+		self._owner = u_base.get_owner and manager:get_info(u_base:get_owner())
 		self._name = HopLib:name_provider():name_by_id(u_base._tweak_table_id)
 		self._nickname = self._owner and managers.localization:text("hoplib_owners_unit", { OWNER = self._owner:nickname(), UNIT = self._name })
 		self._is_special = u_base._tweak_table_id:find("turret") and true
@@ -54,6 +59,7 @@ function UnitInfo:init(unit, u_key, manager)
 		self._update_owner_stats = self._owner and true
 	end
 
+	self._type = self._type or "unknown"
 	self._name = self._name or "unknown"
 end
 
