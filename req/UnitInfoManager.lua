@@ -8,15 +8,10 @@ function UnitInfo:init(unit, u_key, manager)
 	self._damage = 0
 	self._kills = 0
 
-	local u_base = unit:base()
+	local u_base = unit:base() or {}
 	local cm = managers.criminals
 
-	if not u_base then
-		if unit:vehicle_driving() then
-			self._type = "vehicle"
-			self._name = managers.localization:text(unit:vehicle_driving()._tweak_data.name_id)
-		end
-	elseif u_base.is_husk_player or u_base.is_local_player then
+	if u_base.is_husk_player or u_base.is_local_player then
 		self._type = u_base.is_local_player and "local_player" or "remote_player"
 		self._peer = unit:network():peer()
 		self._name = u_base.is_local_player and managers.network.account:username() or self._peer and self._peer:name()
@@ -57,10 +52,14 @@ function UnitInfo:init(unit, u_key, manager)
 		self._is_special = u_base._tweak_table_id:find("turret") and true
 		self._color_id = self._owner and self._owner._color_id or cm:character_color_id_by_unit(unit)
 		self._update_owner_stats = self._owner and true
+	elseif unit:vehicle_driving() then
+		local driving = unit:vehicle_driving()
+		self._type = "vehicle"
+		self._name = driving._tweak_data.name_id and managers.localization:text(driving._tweak_data.name_id) or tostring(driving.tweak_data):pretty(true)
 	end
 
 	self._type = self._type or "unknown"
-	self._name = self._name or "unknown"
+	self._name = self._name or "Unknown"
 end
 
 function UnitInfo:update_damage(damage, is_kill)
