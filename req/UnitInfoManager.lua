@@ -95,7 +95,7 @@ function UnitInfo:id()
 end
 
 ---Returns the unit type
----@return string
+---@return '"local_player"'|'"remote_player"'|'"npc"'|'"team_ai"'|'"joker"'|'"sentry"'|'"vehicle"'
 function UnitInfo:type()
 	return self._type
 end
