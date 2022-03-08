@@ -15,20 +15,20 @@ end
 
 ---Saves the current settings (done automatically on settings change via menu)
 function MenuBuilder:save_settings()
-	local file = io.open(SavePath .. self._id .. ".txt", "w+")
-	if file then
-		file:write(json.encode(self._table))
-		file:close()
-	end
+	io.save_as_json(self._table, SavePath .. self._id .. ".json")
 end
 
 ---Loads the current settings (done automatically on MenuBuilder creation)
 function MenuBuilder:load_settings()
-	local file = io.open(SavePath .. self._id .. ".txt", "r")
-	if file then
-		local data = json.decode(file:read("*all"))
-		file:close()
-		table.replace(self._table, data or {}, true)
+	local path = SavePath .. self._id .. ".json"
+	local data = io.file_is_readable(path) and io.load_as_json(path)
+	if not data then
+		path = SavePath .. self._id .. ".txt"
+		data = io.file_is_readable(path) and io.load_as_json(path)
+	end
+
+	if data then
+		table.replace(self._table, data, true)
 	end
 end
 
