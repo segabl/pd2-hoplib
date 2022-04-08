@@ -2,6 +2,7 @@ if not HopLib then
 
 	_G.HopLib = {}
 
+	dofile(ModPath .. "req/ColorUtils.lua")
 	dofile(ModPath .. "req/MenuBuilder.lua")
 	dofile(ModPath .. "req/NameProvider.lua")
 	dofile(ModPath .. "req/TableUtils.lua")

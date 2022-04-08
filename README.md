@@ -65,6 +65,15 @@ HopLib also provides some utility functions:
 - ``HopLib:is_object_of_class(object, c)`` Returns ``true`` if ``object`` is of class ``c``, either directly or by inheritance.
 - ``HopLib:load_assets(assets)`` Loads all files in the ``assets`` table. Entries must be tables containing ``ext``, ``path`` and ``file`` keys and may contain an optional ``override`` key.
 
+### Color Utility
+
+Additional utility functions that operate on color values:
+
+- ``Color:grayscale()`` Returns a grayscale version of the color by taking the average of all color channels.
+- ``Color:invert([invert_alpha])`` Returns the inverse of the color, inverting the alpha channel if ``invert_alpha`` is set.
+
+All color utility functions operate on the game's color objects (e.g. ``Color.black:invert()``) and return a new Color rather than changing the existing one.
+
 ### Table Utility
 
 Additional utility functions that operate on tables:
