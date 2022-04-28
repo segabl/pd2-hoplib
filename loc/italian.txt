@@ -7,6 +7,7 @@
 	"civ_male_locke_escort" : "Vernon Locke",
 	"civ_male_mitch" : "Mitchell",
 	"civ_male_vlad" : "Vlad",
+	"civ_male_taxman" : "Fisco",
 	"civ_male" : "Civile",
 	"ene_akan_cs_cop" : "Mercenario",
 	"ene_akan_cs_heavy" : "Mercenario tattico",

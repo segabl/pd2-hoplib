@@ -6,6 +6,7 @@
 	"civ_male_bank_manager" : "은행 매니저",
 	"civ_male_locke_escort" : "로크",
 	"civ_male_mitch" : "미쉘",
+	"civ_male_taxman" : "텍스맨",
 	"civ_male_vlad" : "블라드",
 	"civ_male" : "시민",
 	"ene_akan_cs_cop" : "용병",

@@ -6,6 +6,7 @@
 	"civ_male_bank_manager" : "Bank Manager",
 	"civ_male_locke_escort" : "Vernon Locke",
 	"civ_male_mitch" : "Mitchell",
+	"civ_male_taxman" : "Taxman",
 	"civ_male_vlad" : "Vlad",
 	"civ_male" : "Civilian",
 	"ene_akan_cs_cop" : "Mercenary",

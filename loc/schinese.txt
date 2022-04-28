@@ -6,6 +6,7 @@
 	"civ_male_bank_manager" : "银行经理",
 	"civ_male_locke_escort" : "弗农·洛克",
 	"civ_male_mitch" : "米歇尔",
+	"civ_male_taxman" : "税务官",
 	"civ_male_vlad" : "弗拉德",
 	"civ_male" : "平民",
 	"ene_akan_cs_cop" : "俄罗斯雇佣兵",
