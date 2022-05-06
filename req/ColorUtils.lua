@@ -11,3 +11,13 @@ end
 function Color:invert(invert_alpha)
 	return Color(invert_alpha and 1 - self.a or self.a, 1 - self.r, 1 - self.g, 1 - self.b)
 end
+
+---Returns the color as a hexadecimal string
+---@return string
+function Color:hex()
+	if self.a < 1 then
+		return string.format("%02x%02x%02x%02x", self.a * 255, self.r * 255, self.g * 255, self.b * 255)
+	else
+		return string.format("%02x%02x%02x", self.r * 255, self.g * 255, self.b * 255)
+	end
+end
