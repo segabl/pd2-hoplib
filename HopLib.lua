@@ -143,6 +143,11 @@ if not HopLib then
 
 	Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function (loc)
 		HopLib:load_localization(HopLib.mod_path .. "loc/", loc)
+
+		local custom_loc_path = SavePath .. "hoplib_custom_loc.txt"
+		if io.file_is_readable(custom_loc_path) then
+			pcall(loc.load_localization_file, loc, custom_loc_path)
+		end
 	end)
 
 end
