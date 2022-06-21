@@ -79,6 +79,7 @@
 	"ene_male_commissioner" : "개럿",
 	"ene_male_crew" : "크루 멤버",
 	"ene_male_hector" : "헥터",
+	"ene_male_marshal_marksman" : "육군 원수",
 	"ene_male_office_cop" : "경찰",
 	"ene_male_security_penthouse" : "보안 경비",
 	"ene_male_triad_gang" : "삼합회원",

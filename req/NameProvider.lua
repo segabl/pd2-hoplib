@@ -72,7 +72,7 @@ function NameProvider:name_by_unit(unit, u_key)
 		return managers.localization:text(redir_name)
 	end
 	managers.localization:add_localized_strings({
-		[name] = redir_name:gsub("^[a-z]+_", ""):pretty(true)
+		[name] = redir_name:gsub("^[a-z]+_", ""):gsub("^f?e?male_", ""):gsub("_?[0-9]+$", ""):pretty(true)
 	})
 	return managers.localization:text(name)
 end

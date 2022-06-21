@@ -79,6 +79,7 @@
 	"ene_male_commissioner" : "Comissário Garrett",
 	"ene_male_crew" : "Membro do Grupo",
 	"ene_male_hector" : "Hector Morales",
+	"ene_male_marshal_marksman" : "Marechal",
 	"ene_male_office_cop" : "Policial",
 	"ene_male_security_penthouse" : "Segurança",
 	"ene_male_triad_gang" : "Bandido",
