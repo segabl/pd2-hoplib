@@ -4,7 +4,7 @@ local function safe_add(char_map_table, element)
 	if not char_map_table or not char_map_table.list then
 		if not logged_error then
 			logged_error = true
-			log("[HopLib] WARNING: CharacterTweakData:character_map has missing data! One or more of your mods use outdated code, check for mods overriding this function!")
+			log("[HopLib] WARNING: CharacterTweakData:character_map has missing data! One of your mods uses outdated code, check for mods overriding this function!")
 		end
 		return
 	end
@@ -30,6 +30,8 @@ function CharacterTweakData:character_map(...)
 	safe_add(char_map.bex, "ene_swat_policia_federale_fbi")
 	safe_add(char_map.bex, "ene_swat_policia_federale_fbi_r870")
 	safe_add(char_map.chas, "ene_male_triad_01")
+	safe_add(char_map.ranc, "ene_male_ranc_ranger_01")
+	safe_add(char_map.ranc, "ene_male_ranc_ranger_02")
 
 	Hooks:Call("HopLibOnCharacterMapCreated", char_map)
 
