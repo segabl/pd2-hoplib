@@ -36,7 +36,7 @@ end
 
 ---Returns a localized name based on the tweak data id
 ---@param tweak string @tweak data id to get the name for
----@return string
+---@return string?
 function NameProvider:name_by_id(tweak)
 	if not tweak then
 		return

@@ -74,7 +74,7 @@ if not HopLib then
 	end
 
 	---Returns the modded language
-	---@return string
+	---@return string?
 	function HopLib:get_modded_language()
 		local mod_language = PD2KR and "korean" or PD2PTBR and "portuguese"
 		if mod_language then
@@ -93,7 +93,7 @@ if not HopLib then
 	---Loads localization file and returns loaded language
 	---@param path string @path to look for localization files in
 	---@param localization_manager? table @instance of the localization manager
-	---@return string
+	---@return string?
 	function HopLib:load_localization(path, localization_manager)
 		localization_manager = localization_manager or managers.localization
 		if not localization_manager then
@@ -125,8 +125,8 @@ if not HopLib then
 		return language or "english"
 	end
 
-	---Loads game assets from files
-	---@param assets table<any, table> @table containing assets to load
+	---Loads assets from files with an asset being defined as a table containing `ext`, `path` and `file`
+	---@param assets table[] @list of assets to load
 	function HopLib:load_assets(assets)
 		local load_func
 		if BLT.AssetManager then
