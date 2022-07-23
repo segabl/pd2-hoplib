@@ -133,6 +133,17 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 					menu_id = menu_id,
 					priority = self._params[k] and self._params[k].priority or 0
 				})
+			elseif t == "function" then
+				local callback_name = self._id .. "_button_" .. k
+				MenuCallbackHandler[callback_name] = function (...) v(...) end
+				MenuHelper:AddButton({
+					id = hierarchy .. k,
+					title = name_id,
+					desc = desc,
+					callback = callback_name,
+					menu_id = menu_id,
+					priority = self._params[k] and self._params[k].priority or 0
+				})
 			elseif t == "table" then
 				local node_id = menu_id .. "_" .. k
 				MenuHelper:AddButton({
