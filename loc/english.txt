@@ -79,7 +79,7 @@
 	"ene_male_commissioner" : "Commissioner Garrett",
 	"ene_male_crew" : "Crew Member",
 	"ene_male_hector" : "Hector Morales",
-	"ene_male_marshal_marksman" : "U.S. Marshal",
+	"ene_male_marshal_marksman" : "Marshal",
 	"ene_male_office_cop" : "Cop",
 	"ene_male_ranc_ranger" : "Texas Ranger",
 	"ene_male_ranc_security" : "Security Guard",
