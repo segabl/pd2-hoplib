@@ -125,7 +125,14 @@ if not HopLib then
 		return language or "english"
 	end
 
-	---Loads assets from files with an asset being defined as a table containing `ext`, `path` and `file`
+	---Loads assets from files with an asset definition in the form of
+	---```lua
+	---{
+	---	ext = Idstring("texture"),
+	---	path = Idstring("guis/textures/my_texture"),
+	---	file = "mods/my_mod/assets/my_texture.texture"
+	---}
+	---```
 	---@param assets table[] @list of assets to load
 	function HopLib:load_assets(assets)
 		local load_func

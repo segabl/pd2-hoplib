@@ -17,7 +17,7 @@ end
 ---Replaces only existing values in tbl1 with values from tbl2
 ---@param tbl1 table @table to replace values in
 ---@param tbl2 table @table to take values from
----@param match_type boolean @wether value types must match to be replaced
+---@param match_type? boolean @wether value types must match to be replaced
 ---@return table
 function table.replace(tbl1, tbl2, match_type)
 	for k, v in pairs(tbl2) do

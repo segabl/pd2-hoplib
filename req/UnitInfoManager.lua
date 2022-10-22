@@ -106,7 +106,7 @@ function UnitInfo:name()
 	return self._name
 end
 
----Returns the unit's nickname
+---Returns the unit's nickname, or name if it doesnt have a nickname
 ---@return string
 function UnitInfo:nickname()
 	return self._nickname or self._name
@@ -131,7 +131,7 @@ function UnitInfo:kills()
 end
 
 ---Returns the peer object of the unit
----@return table
+---@return table?
 function UnitInfo:peer()
 	return self._peer
 end
@@ -154,25 +154,25 @@ function UnitInfo:color_id()
 	return self._color_id
 end
 
----Returns true if the unit is a civilian
+---Returns wether the unit is a civilian
 ---@return boolean
 function UnitInfo:is_civilian()
 	return self._is_civilian
 end
 
----Returns true if the unit is a special enemy
+---Returns wether the unit is a special enemy
 ---@return boolean
 function UnitInfo:is_special()
 	return self._is_special
 end
 
----Returns true if the unit is a boss type enemy
+---Returns wether the unit is a boss type enemy
 ---@return boolean
 function UnitInfo:is_boss()
 	return self._is_boss
 end
 
----Returns true if the unit is female
+---Returns wether the unit is female
 ---@return boolean
 function UnitInfo:is_female()
 	return self._female

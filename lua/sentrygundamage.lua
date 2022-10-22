@@ -6,9 +6,13 @@ Hooks:PostHook(SentryGunDamage, "_apply_damage", "_apply_damage_hoplib", functio
 		if info then
 			info:update_damage(dmg, self._dead)
 		end
-		Hooks:Call("HopLibOnUnitDamaged", self._unit, { damage = dmg, attacker_unit = attacker_unit })
+		local attack_data = {
+			damage = dmg,
+			attacker_unit = attacker_unit
+		}
+		Hooks:Call("HopLibOnUnitDamaged", self._unit, attack_data)
 		if self._dead then
-			Hooks:Call("HopLibOnUnitDied", self._unit, { damage = dmg, attacker_unit = attacker_unit })
+			Hooks:Call("HopLibOnUnitDied", self._unit, attack_data)
 			HopLib:unit_info_manager():clear_info(self._unit)
 		end
 	end
