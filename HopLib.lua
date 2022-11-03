@@ -133,6 +133,7 @@ if not HopLib then
 	---	file = "mods/my_mod/assets/my_texture.texture"
 	---}
 	---```
+	---Existing assets will only be replaced if `override = true` is specified in the asset definition
 	---@param assets table[] @list of assets to load
 	function HopLib:load_assets(assets)
 		local load_func
@@ -148,6 +149,27 @@ if not HopLib then
 		end
 	end
 
+	---Executes a lua file matching the current `RequiredScript` file name
+	---@param path string @path to look for matching lua files in
+	function HopLib:run_required(path)
+		if not RequiredScript then
+			return
+		end
+
+		self._required = self._required or {}
+
+		local fname = path .. RequiredScript:gsub(".+/(.+)", "%1.lua")
+		if self._required[fname] then
+			return
+		end
+
+		if io.file_is_readable(fname) then
+			dofile(fname)
+		end
+
+		self._required[fname] = true
+	end
+
 	Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function (loc)
 		HopLib:load_localization(HopLib.mod_path .. "loc/", loc)
 
@@ -159,11 +181,4 @@ if not HopLib then
 
 end
 
-if RequiredScript then
-
-	local fname = HopLib.mod_path .. "lua/" .. RequiredScript:gsub(".+/(.+)", "%1.lua")
-	if io.file_is_readable(fname) then
-		dofile(fname)
-	end
-
-end
+HopLib:run_required(HopLib.mod_path .. "lua/")
