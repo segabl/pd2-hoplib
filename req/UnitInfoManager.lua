@@ -1,4 +1,5 @@
 ---@class UnitInfo
+---@field new fun(self, unit, u_key, manager):UnitInfo
 UnitInfo = class()
 
 function UnitInfo:init(unit, u_key, manager)
@@ -180,6 +181,7 @@ end
 
 
 ---@class UnitInfoManager
+---@field new fun(self):UnitInfoManager
 UnitInfoManager = class()
 
 function UnitInfoManager:init()

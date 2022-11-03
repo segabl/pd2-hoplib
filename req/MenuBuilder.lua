@@ -1,11 +1,11 @@
 ---@class MenuBuilder
+---@field new fun(self, identifier, settings_table, settings_params):MenuBuilder
 MenuBuilder = class()
 
 ---Creates a MenuBuilder instance (call as `MenuBuilder:new`)
 ---@param identifier string @unique identifier of the mod the menu is built for
 ---@param settings_table table @settings table to build the menu for
 ---@param settings_params? table @optional parameters to be used for creating the menu
----@return MenuBuilder
 function MenuBuilder:init(identifier, settings_table, settings_params)
 	self._id = identifier
 	self._table = settings_table

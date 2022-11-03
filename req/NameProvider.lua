@@ -1,6 +1,7 @@
 local is_client = Network:is_client()
 
 ---@class NameProvider
+---@field new fun(self):NameProvider
 NameProvider = class()
 
 NameProvider.TWEAK_REDIRECTS = {
