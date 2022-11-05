@@ -76,13 +76,14 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 
 	local function loop_tables(tbl, menu_id, hierarchy, inherited_params)
 		hierarchy = hierarchy and hierarchy .. "/" or ""
+		inherited_params = inherited_params or {}
 		MenuHelper:NewMenu(menu_id)
 		for k, v in pairs(tbl) do
 			local t = type(v)
 			local name_id = "menu_" .. self._id .. "_" .. k
 			local desc_id = name_id .. "_desc"
 			local desc = loc and loc:exists(desc_id) and desc_id
-			local params = self._params[k] or inherited_params
+			local params = self._params[k] and table.union(clone(inherited_params), self._params[k]) or inherited_params
 			if loc and not loc:exists(name_id) then
 				loc_strings[name_id] = k:pretty()
 			end
@@ -97,7 +98,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 					priority = self._params[k] and self._params[k].priority or 0
 				})
 			elseif t == "number" then
-				if params and params.items then
+				if params.items then
 					MenuHelper:AddMultipleChoice({
 						id = hierarchy .. k,
 						title = name_id,
@@ -115,9 +116,9 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 						desc = desc,
 						callback = self._id .. "_value",
 						value = v,
-						min = params and params.min or 0,
-						max = params and params.max or 1,
-						step = params and params.step or 0.1,
+						min = params.min or 0,
+						max = params.max or 1,
+						step = params.step or 0.1,
 						show_value = true,
 						menu_id = menu_id,
 						priority = self._params[k] and self._params[k].priority or 0
