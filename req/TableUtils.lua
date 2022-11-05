@@ -30,7 +30,7 @@ function table.replace(tbl1, tbl2, match_type)
 			end
 		end
 	end
-	return tlb1
+	return tbl1
 end
 
 ---Calls a function for every non-table value, recurses function call for table values
@@ -45,5 +45,5 @@ function table.recurse(tbl, func)
 			func(v, k)
 		end
 	end
-	return tbl1
+	return tbl
 end
