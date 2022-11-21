@@ -20,15 +20,20 @@ if not HopLib then
 	HopLib.language_keys = {
 		[Idstring("dutch"):key()] = "dutch",
 		[Idstring("english"):key()] = "english",
+		[Idstring("finnish"):key()] = "finnish",
 		[Idstring("french"):key()] = "french",
 		[Idstring("german"):key()] = "german",
 		[Idstring("italian"):key()] = "italian",
 		[Idstring("japanese"):key()] = "japanese",
 		[Idstring("korean"):key()] = "korean",
+		[Idstring("latam"):key()] = "latam",
+		[Idstring("polish"):key()] = "polish",
+		[Idstring("portuguese"):key()] = "portuguese",
 		[Idstring("russian"):key()] = "russian",
 		[Idstring("schinese"):key()] = "schinese",
 		[Idstring("spanish"):key()] = "spanish",
-		[Idstring("swedish"):key()] = "swedish"
+		[Idstring("swedish"):key()] = "swedish",
+		[Idstring("swedish"):key()] = "turkish"
 	}
 
 	---Returns the current NameProvider instance
