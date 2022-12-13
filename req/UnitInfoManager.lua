@@ -34,8 +34,7 @@ function UnitInfo:init(unit, u_key, manager)
 		elseif self._owner or gstate._police[u_key] and gstate._police[u_key].is_converted or gstate:is_enemy_converted_to_criminal(unit) then
 			self._type = "joker"
 			self._name = HopLib:name_provider():name_by_unit(unit) or HopLib:name_provider():name_by_id(u_base._tweak_table)
-			local get_joker_name_by_peer = Keepers and (Keepers.GetJokerNameByPeer or Keepers.get_joker_name_by_peer)
-			self._nickname = u_base.kpr_minion_owner_peer_id and get_joker_name_by_peer(Keepers, u_base.kpr_minion_owner_peer_id)
+			self._nickname = u_base.joker_name or u_base.kpr_minion_owner_peer_id and Keepers and Keepers.get_joker_name_by_peer(Keepers, u_base.kpr_minion_owner_peer_id)
 			if not self._nickname or self._nickname == "" then
 				self._nickname = self._owner and managers.localization:text("hoplib_owners_unit", { OWNER = self._owner:nickname(), UNIT = self._name })
 			end
