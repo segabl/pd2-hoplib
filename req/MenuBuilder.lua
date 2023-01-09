@@ -75,6 +75,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 	end
 
 	local function loop_tables(tbl, menu_id, hierarchy, inherited_params)
+		local element_priority = 0
 		hierarchy = hierarchy and hierarchy .. "/" or ""
 		inherited_params = inherited_params or {}
 		MenuHelper:NewMenu(menu_id)
@@ -87,6 +88,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 			if loc and not loc:exists(name_id) then
 				loc_strings[name_id] = k:pretty()
 			end
+			element_priority = element_priority - 1
 			if t == "boolean" then
 				MenuHelper:AddToggle({
 					id = hierarchy .. k,
@@ -95,7 +97,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 					callback = self._id .. "_toggle",
 					value = v,
 					menu_id = menu_id,
-					priority = self._params[k] and self._params[k].priority or 0
+					priority = self._params[k] and self._params[k].priority or element_priority
 				})
 			elseif t == "number" then
 				if params.items then
@@ -107,7 +109,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 						value = v,
 						items = params.items,
 						menu_id = menu_id,
-						priority = self._params[k] and self._params[k].priority or 0
+						priority = self._params[k] and self._params[k].priority or element_priority
 					})
 				else
 					MenuHelper:AddSlider({
@@ -121,7 +123,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 						step = params.step or 0.1,
 						show_value = true,
 						menu_id = menu_id,
-						priority = self._params[k] and self._params[k].priority or 0
+						priority = self._params[k] and self._params[k].priority or element_priority
 					})
 				end
 			elseif t == "string" then
@@ -132,7 +134,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 					callback = self._id .. "_value",
 					value = v,
 					menu_id = menu_id,
-					priority = self._params[k] and self._params[k].priority or 0
+					priority = self._params[k] and self._params[k].priority or element_priority
 				})
 			elseif t == "function" then
 				local callback_name = self._id .. "_button_" .. k
@@ -143,7 +145,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 					desc = desc,
 					callback = callback_name,
 					menu_id = menu_id,
-					priority = self._params[k] and self._params[k].priority or 0
+					priority = self._params[k] and self._params[k].priority or element_priority
 				})
 			elseif t == "table" then
 				local node_id = menu_id .. "_" .. k
@@ -153,9 +155,17 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 					desc = desc,
 					next_node = node_id,
 					menu_id = menu_id,
-					priority = self._params[k] and self._params[k].priority or 0
+					priority = self._params[k] and self._params[k].priority or element_priority
 				})
 				loop_tables(v, node_id, hierarchy .. k, params)
+			end
+			local divider = self._params[k] and self._params[k].divider
+			if divider then
+				MenuHelper:AddDivider({
+					menu_id = menu_id,
+					size = math.abs(divider),
+					priority = (self._params[k] and self._params[k].priority or element_priority) + (divider < 0 and 0.1 or -0.1)
+				})
 			end
 		end
 		menu_nodes[menu_id] = MenuHelper:BuildMenu(menu_id, { back_callback = self._id .. "_save" })
