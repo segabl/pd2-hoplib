@@ -1,14 +1,17 @@
 ---Merges all values from tbl2 into tbl1, replacing existing values in tbl1
 ---@param tbl1 table @table to union into
 ---@param tbl2 table @table to union from
+---@param match_type? boolean @wether value types must match to be replaced
 ---@return table
-function table.union(tbl1, tbl2)
+function table.union(tbl1, tbl2, match_type)
 	for k, v in pairs(tbl2) do
-		if type(v) == "table" then
-			tbl1[k] = type(tbl1[k]) =="table" and tbl1[k] or {}
-			table.union(tbl1[k], v)
-		else
-			tbl1[k] = v
+		if not match_type or tbl1[k] == nil or type(tbl1[k]) == type(v) then
+			if type(v) == "table" then
+				tbl1[k] = type(tbl1[k]) == "table" and tbl1[k] or {}
+				table.union(tbl1[k], v, match_type)
+			else
+				tbl1[k] = v
+			end
 		end
 	end
 	return tbl1
@@ -23,7 +26,7 @@ function table.replace(tbl1, tbl2, match_type)
 	for k, v in pairs(tbl2) do
 		if type(tbl1[k]) == type(v) or not match_type and tbl1[k] ~= nil then
 			if type(v) == "table" then
-				tbl1[k] = type(tbl1[k]) =="table" and tbl1[k] or {}
+				tbl1[k] = type(tbl1[k]) == "table" and tbl1[k] or {}
 				table.replace(tbl1[k], v, match_type)
 			else
 				tbl1[k] = v
