@@ -79,7 +79,7 @@ All color utility functions operate on the game's color objects (e.g. `Color.bla
 
 Additional utility functions that operate on tables:
 
-- `table.union(tbl1, tbl2)` Merges all values from `tbl2` into `tbl1`, replacing existing values in tbl1.
+- `table.union(tbl1, tbl2, [match_type])` Merges all values from `tbl2` into `tbl1`, replacing existing values in tbl1. If `match_type` is set, the value types in both tables must match to be replaced.
 - `table.replace(tbl1, tbl2, [match_type])` Replaces only existing values in `tbl1` with values from `tbl2`. If `match_type` is set, the value types in both tables must match to be replaced.
 - `table.recurse(tbl, func)` Calls `func(value, key)` for each non-table value in `tbl`. If the value is a table itself, calls itself on that table.
 

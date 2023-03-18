@@ -1,13 +1,13 @@
 {
 	"name" : "HopLib",
-	"description" : "Collection of functions and useful tools used in multiple of my mods",
+	"description" : "Collection of utility functions and useful tools",
 	"author" : "Hoppip",
 	"priority" : 499,
 	"undisablable" : true,
 	"is_library" : true,
 	"color" : "0.043 0.808 0.6",
 	"image" : "mod.png",
-	"version" : "2.1.1",
+	"version" : "2.1.2",
 	"updates" : [{
 		"identifier" : "pd2-hoplib",
 		"host": { "meta": "https://updates.hoppip.at/pd2-hoplib" }
