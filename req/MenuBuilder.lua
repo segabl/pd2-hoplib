@@ -33,7 +33,7 @@ function MenuBuilder:load_settings()
 end
 
 ---Creates a new menu and places it in the specified parent menu
----@param menu_nodes table @menu nodes as provided by the ``MenuManagerBuildCustomMenus`` hook
+---@param menu_nodes table @menu nodes as provided by the `MenuManagerBuildCustomMenus` hook
 ---@param parent_menu? string @defaults to blt_options
 function MenuBuilder:create_menu(menu_nodes, parent_menu)
 	parent_menu = parent_menu or "blt_options"
@@ -76,20 +76,28 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 
 	local function loop_tables(tbl, menu_id, hierarchy, inherited_params)
 		local element_priority = 0
+
 		hierarchy = hierarchy and hierarchy .. "/" or ""
 		inherited_params = inherited_params or {}
+
 		MenuHelper:NewMenu(menu_id)
+
 		for k, v in pairs(tbl) do
 			local t = type(v)
 			local name_id = "menu_" .. self._id .. "_" .. k
 			local desc_id = name_id .. "_desc"
 			local desc = loc and loc:exists(desc_id) and desc_id
 			local params = self._params[k] and table.union(clone(inherited_params), self._params[k]) or inherited_params
+
 			if loc and not loc:exists(name_id) then
 				loc_strings[name_id] = k:pretty()
 			end
+
 			element_priority = element_priority - 1
-			if t == "boolean" then
+
+			if params.hidden then
+				-- Don't create menu entries for hidden settings
+			elseif t == "boolean" then
 				MenuHelper:AddToggle({
 					id = hierarchy .. k,
 					title = name_id,
@@ -159,6 +167,7 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 				})
 				loop_tables(v, node_id, hierarchy .. k, params)
 			end
+
 			local divider = self._params[k] and self._params[k].divider
 			if divider then
 				MenuHelper:AddDivider({
@@ -168,8 +177,10 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 				})
 			end
 		end
+
 		menu_nodes[menu_id] = MenuHelper:BuildMenu(menu_id, { back_callback = self._id .. "_save" })
 	end
+
 	loop_tables(self._table, self._id)
 
 	local name_id = "menu_" .. self._id
