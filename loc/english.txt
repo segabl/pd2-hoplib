@@ -155,7 +155,7 @@
 	"ene_zeal_bulldozer_halloween" : "Headless ZEAL Bulldozer",
 	"ene_zeal_bulldozer" : "Skulldozer",
 	"ene_zeal_cloaker" : "Cloaker",
-	"ene_zeal_swat_heavy_sniper" : "ZEAL Marksman",
+	"ene_zeal_swat_heavy_sniper" : "ZEAL Heavy Sniper",
 	"ene_zeal_swat_heavy" : "ZEAL Heavy SWAT",
 	"ene_zeal_swat_shield" : "Shield",
 	"ene_zeal_swat" : "ZEAL SWAT",
