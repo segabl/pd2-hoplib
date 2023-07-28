@@ -38,7 +38,7 @@ end
 
 ---Calls a function for every non-table value, recurses function call for table values
 ---@param tbl table @table to run `func` on
----@param func function @function to run for each entry
+---@param func fun(value: any, key:any) @function to run for each entry
 ---@return table
 function table.recurse(tbl, func)
 	for k, v in pairs(tbl) do
