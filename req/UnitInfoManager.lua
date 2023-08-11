@@ -1,7 +1,10 @@
 ---@class UnitInfo
----@field new fun(self, unit, u_key, manager):UnitInfo
+---@field new fun(self: UnitInfo, unit: Unit, u_key: string, manager: UnitInfoManager):UnitInfo
 UnitInfo = class()
 
+---@param unit Unit
+---@param u_key string
+---@param manager UnitInfoManager
 function UnitInfo:init(unit, u_key, manager)
 	self._unit = unit
 	self._unit_key = u_key
@@ -21,7 +24,7 @@ function UnitInfo:init(unit, u_key, manager)
 		self._damage = self._peer and self._peer._data_damage or 0
 		self._kills = self._peer and self._peer._data_kills or 0
 		self._color_id = cm:character_color_id_by_unit(unit)
-	elseif HopLib:is_object_of_class(u_base, CopBase) then
+	elseif Utils:IsInstanceOf(u_base, CopBase) then
 		local name_mapping = HopLib:name_provider().UNIT_MAPPIGS[unit:name():key()] or ""
 		self._type = "npc"
 		self._owner = manager:get_info(u_base._minion_owner or u_base.kpr_minion_owner_peer_id and cm:character_unit_by_peer_id(u_base.kpr_minion_owner_peer_id))
@@ -40,7 +43,7 @@ function UnitInfo:init(unit, u_key, manager)
 			end
 		elseif u_base.char_tweak then
 			self._name = HopLib:name_provider():name_by_unit(unit) or HopLib:name_provider():name_by_id(u_base._tweak_table)
-			self._is_civilian = HopLib:is_object_of_class(u_base,Network:is_server() and CivilianBase or HuskCivilianBase)
+			self._is_civilian = Utils:IsInstanceOf(u_base, Network:is_server() and CivilianBase or HuskCivilianBase)
 			self._is_special = u_base:char_tweak() and u_base:char_tweak().priority_shout and true
 			self._is_boss = u_base._tweak_table:find("boss") and true
 		end
@@ -77,7 +80,7 @@ function UnitInfo:update_damage(damage, is_kill)
 end
 
 ---Returns the unit
----@return userdata
+---@return Unit
 function UnitInfo:unit()
 	return self._unit
 end
@@ -119,7 +122,7 @@ function UnitInfo:owner()
 end
 
 ---Returns the amount of damage dealt by the unit
----@return integer
+---@return number
 function UnitInfo:damage()
 	return self._damage
 end
@@ -205,7 +208,7 @@ function UnitInfoManager:_create_info(unit, u_key, temp)
 end
 
 ---Returns the UnitInfo instance of the unit (or unit key if provided)
----@param unit? userdata @unit to get the UnitInfo instance of
+---@param unit? Unit @unit to get the UnitInfo instance of
 ---@param u_key? string @`unit:name():key()` of the unit to get the UnitInfo instance of
 ---@param temp? boolean @wether the UnitInfo should not be saved to the list
 ---@return UnitInfo?
@@ -218,7 +221,7 @@ function UnitInfoManager:get_info(unit, u_key, temp)
 end
 
 ---Removes the UnitInfo instance of the unit (or unit key if provided)
----@param unit? userdata @unit to clear the UnitInfo of
+---@param unit? Unit @unit to clear the UnitInfo of
 ---@param u_key? string @`unit:name():key()` of the unit to clear the UnitInfo of
 function UnitInfoManager:clear_info(unit, u_key)
 	u_key = u_key or alive(unit) and unit:key()

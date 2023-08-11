@@ -54,22 +54,10 @@ if not HopLib then
 		return self._unit_info_manager
 	end
 
-	---Checks if an object is of a certain class, either directly or by inheritance
-	---@param object table @object to check
-	---@param c table @class to check against
-	---@return boolean
+	---Use BLT's `Utils:IsInstanceOf(object, c)` instead
+	---@deprecated
 	function HopLib:is_object_of_class(object, c)
-		if object == c then
-			return true
-		end
-		local m = getmetatable(object)
-		while m do
-			 if m == c then
-				 return true
-			 end
-			 m = m.super
-		end
-		return false
+		return Utils:IsInstanceOf(object, c)
 	end
 
 	---Returns the language of the game
@@ -130,6 +118,12 @@ if not HopLib then
 		return language or "english"
 	end
 
+	---@class assetdef
+	---@field ext Idstring
+	---@field path Idstring
+	---@field file string
+	---@field override boolean?
+
 	---Loads assets from files with an asset definition in the form of
 	---```lua
 	---{
@@ -139,17 +133,11 @@ if not HopLib then
 	---}
 	---```
 	---Existing assets will only be replaced if `override = true` is specified in the asset definition
-	---@param assets table[] @list of assets to load
+	---@param assets assetdef[] @list of assets to load
 	function HopLib:load_assets(assets)
-		local load_func
-		if BLT.AssetManager then
-			load_func = function (ext, path, file) BLT.AssetManager:CreateEntry(path, ext, file) end
-		else
-			load_func = function (ext, path, file) DB:create_entry(ext, path, file) end
-		end
 		for _, v in pairs(assets) do
 			if v.override or not DB:has(v.ext, v.path) then
-				load_func(v.ext, v.path, v.file)
+				BLT.AssetManager:CreateEntry(v.path, v.ext, v.file)
 			end
 		end
 	end

@@ -53,7 +53,7 @@ function NameProvider:name_by_id(tweak)
 end
 
 ---Returns a localized name based on the unit (or unit key if provided)
----@param unit? userdata @unit to get the name for
+---@param unit? Unit @unit to get the name for
 ---@param u_key? string @`unit:name():key()` to get the name for
 ---@return string?
 function NameProvider:name_by_unit(unit, u_key)

@@ -1,5 +1,5 @@
 ---@class MenuBuilder
----@field new fun(self, identifier, settings_table, settings_params):MenuBuilder
+---@field new fun(self: MenuBuilder, identifier: string, settings_table: table, settings_params: table?):MenuBuilder
 MenuBuilder = class()
 
 ---Creates a MenuBuilder instance (call as `MenuBuilder:new`)
