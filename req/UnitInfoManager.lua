@@ -44,7 +44,7 @@ function UnitInfo:init(unit, u_key, manager)
 		elseif u_base.char_tweak then
 			self._name = HopLib:name_provider():name_by_unit(unit) or HopLib:name_provider():name_by_id(u_base._tweak_table)
 			self._is_civilian = Utils:IsInstanceOf(u_base, Network:is_server() and CivilianBase or HuskCivilianBase)
-			self._is_special = u_base:char_tweak() and u_base:char_tweak().priority_shout and true
+			self._is_special = u_base.has_tag and u_base:has_tag("special")
 			self._is_boss = u_base._tweak_table:find("boss") and true
 		end
 	elseif u_base.sentry_gun then
