@@ -15,7 +15,6 @@
 	"hooks" : [
 		{ "hook_id" : "core/lib/system/coresystem", "script_path" : "HopLib.lua" },
 		{ "hook_id" : "lib/managers/group_ai_states/groupaistatebase", "script_path" : "HopLib.lua" },
-		{ "hook_id" : "lib/network/handlers/unitnetworkhandler", "script_path" : "HopLib.lua" },
 		{ "hook_id" : "lib/tweak_data/charactertweakdata", "script_path" : "HopLib.lua" },
 		{ "hook_id" : "lib/units/enemies/cop/copdamage", "script_path" : "HopLib.lua" },
 		{ "hook_id" : "lib/units/equipment/sentry_gun/sentrygundamage", "script_path" : "HopLib.lua" }
