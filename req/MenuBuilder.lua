@@ -36,6 +36,10 @@ end
 ---@param menu_nodes table @menu nodes as provided by the `MenuManagerBuildCustomMenus` hook
 ---@param parent_menu? string @defaults to blt_options
 function MenuBuilder:create_menu(menu_nodes, parent_menu)
+	if self._created then
+		return
+	end
+
 	parent_menu = parent_menu or "blt_options"
 	if not menu_nodes[parent_menu] then
 		log("[MenuBuilder] ERROR: Parent menu node \"" .. parent_menu .. "\" does not exist (" .. self._id .. ")!")
@@ -126,10 +130,13 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 						desc = desc,
 						callback = self._id .. "_value",
 						value = v,
-						min = params.min or 0,
-						max = params.max or 1,
+						min = params.min or math.min(v, 0),
+						max = params.max or math.max(v, 1),
 						step = params.step or 0.1,
-						show_value = true,
+						show_value = Utils:FirstNonNil(params.show_value, true),
+						display_precision = params.display_precision,
+						display_scale = params.display_scale,
+						is_percentage = params.is_percentage,
 						menu_id = menu_id,
 						priority = self._params[k] and self._params[k].priority or element_priority
 					})
@@ -193,4 +200,14 @@ function MenuBuilder:create_menu(menu_nodes, parent_menu)
 	end
 
 	MenuHelper:AddMenuItem(menu_nodes[parent_menu], self._id, name_id, loc and loc:exists(desc_id) and desc_id)
+
+	self._created = true
+end
+
+---Creates a hook that will automatically build the menu when the game builds its own menus
+---@param parent_menu? string @defaults to blt_options
+function MenuBuilder:create_menu_build_hook(parent_menu)
+	Hooks:Add("MenuManagerBuildCustomMenus", "MenuManagerBuildCustomMenus" .. self._id, function(_, nodes)
+		self:create_menu(nodes, parent_menu)
+	end)
 end
