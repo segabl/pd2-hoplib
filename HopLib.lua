@@ -33,7 +33,7 @@ if not HopLib then
 		[Idstring("schinese"):key()] = "schinese",
 		[Idstring("spanish"):key()] = "spanish",
 		[Idstring("swedish"):key()] = "swedish",
-		[Idstring("swedish"):key()] = "turkish"
+		[Idstring("turkish"):key()] = "turkish"
 	}
 
 	---Returns the current NameProvider instance
