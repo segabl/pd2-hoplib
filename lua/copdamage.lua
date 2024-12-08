@@ -28,3 +28,10 @@ Hooks:PostHook(CopDamage, "load", "load_hoplib", function(self, data)
 		peer:_register_minion(self._unit)
 	end
 end)
+
+Hooks:PreHook(CopDamage, "destroy", "destroy_hoplib", function(self)
+	if self._converted then
+		Hooks:Call("HopLibOnMinionRemoved", self._unit)
+		self._converted = nil
+	end
+end)
