@@ -101,6 +101,8 @@ if not HopLib then
 
 		if io.file_is_readable(path .. system_language .. ".txt") then
 			language = system_language
+		elseif system_language == "latam" and io.file_is_readable(path .. "spanish.txt") then
+			language = "spanish"
 		end
 		if io.file_is_readable(path .. blt_language .. ".txt") then
 			language = blt_language
