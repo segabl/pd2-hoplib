@@ -94,29 +94,39 @@ if not HopLib then
 			return
 		end
 
-		local language
 		local system_language = self:get_game_language()
 		local blt_language = BLT.Localization:get_language().language
 		local mod_language = self:get_modded_language()
+		local exts = { ".txt", ".json" }
+		local alts = { latam = "spanish" }
+		local language, language_file
 
-		if io.file_is_readable(path .. system_language .. ".txt") then
-			language = system_language
-		elseif system_language == "latam" and io.file_is_readable(path .. "spanish.txt") then
-			language = "spanish"
-		end
-		if io.file_is_readable(path .. blt_language .. ".txt") then
-			language = blt_language
-		end
-		if mod_language and io.file_is_readable(path .. mod_language .. ".txt") then
-			language = mod_language
+		local function loc_file(lang)
+			if not lang then
+				return language, language_file
+			end
+			for _, ext in pairs(exts) do
+				if io.file_is_readable(path .. lang .. ext) then
+					return lang, path .. lang .. ext
+				elseif alts[lang] and io.file_is_readable(path .. alts[lang] .. ext) then
+					return alts[lang], path .. alts[lang] .. ext
+				end
+			end
+			return language, language_file
 		end
 
-		if io.file_is_readable(path .. "english.txt") then
-			localization_manager:load_localization_file(path .. "english.txt")
+		language, language_file = loc_file("english")
+		if language then
+			localization_manager:load_localization_file(language_file)
 		end
+
+		language, language_file = loc_file(system_language)
+		language, language_file = loc_file(blt_language)
+		language, language_file = loc_file(mod_language)
 		if language and language ~= "english" then
-			localization_manager:load_localization_file(path .. language .. ".txt")
+			localization_manager:load_localization_file(language_file)
 		end
+
 		return language or "english"
 	end
 
@@ -165,7 +175,7 @@ if not HopLib then
 		self._required[fname] = true
 	end
 
-	Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function (loc)
+	Hooks:Add("LocalizationManagerPostInit", "LocalizationManagerPostInitHopLib", function(loc)
 		HopLib:load_localization(HopLib.mod_path .. "loc/", loc)
 
 		local custom_loc_path = SavePath .. "hoplib_custom_loc.txt"
